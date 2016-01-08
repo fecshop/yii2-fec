@@ -18,6 +18,6 @@ class CConfig
 	# CConfig::getDefaultModuleToken();
 	# 得到默认的module  的 token 配置
 	public static function getDefaultModuleToken(){
-		return self::param("default_module_token");
+		return self::param("default_module_token") ? self::param("default_module_token") : '';
 	}
 }
