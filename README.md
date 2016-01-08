@@ -38,6 +38,7 @@ composer require --prefer-dist fancyecommerce/yii2-fec
 
 ```
 "fancyecommerce/yii2-fec": "~1.0.0"
+composer install
 ```
 
 2、使用
@@ -46,6 +47,7 @@ composer require --prefer-dist fancyecommerce/yii2-fec
 
 调用
 ```php
+<?php
 use fec\helpers\CUrl;
 use fec\helpers\CProfile;
 class Menu{
@@ -58,6 +60,7 @@ class Menu{
 
 配置：
 ```php
+<?php
 public function getModulesConfig(){
 		return [
 			
@@ -101,19 +104,5 @@ class InfoController extends ModulesapiController
 	
 }
 ```
-
-
-
-
-
-
-Demo
-------------
-
-demo地址: http://backend.yii.drupecms.com/
-
-帐号: drupecms
-
-密码: drupecms
 
 
