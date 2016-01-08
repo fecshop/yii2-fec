@@ -7,11 +7,11 @@
 	"ecommerce",
 	"fec"
   ],
-  "homepage": "git@github.com:fancyecommerce/yii2-fec.git",
+  "homepage": "https://github.com/fancyecommerce/yii2-fec",
   "type": "yii2-extension",
   "license": "MIT",
   "support": {
-    "source": "git@github.com:fancyecommerce/yii2-fec.git"
+    "source": "https://github.com/fancyecommerce/yii2-fec"
   },
   "authors": [
     {
