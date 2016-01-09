@@ -32,12 +32,12 @@ fork 参与开发，欢迎提交 Pull Requests，然后 Pull Request
 执行
 
 ```
-composer require --prefer-dist fancyecommerce/yii2-fec
+composer require --prefer-dist fancyecommerce/fec
 ```
 或添加
 
 ```
-"fancyecommerce/yii2-fec": "~1.0.0"
+"fancyecommerce/fec": "~1.0.0"
 composer install
 ```
 
