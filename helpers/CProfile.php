@@ -105,11 +105,7 @@ class CProfile
 	# 得到模块的配置
 	public function getModulesConfig(){
 		return [
-			'DArticle' => [
-							'moduleDir' =>'\appdata\code\Blog\DArticle',
-							'apiurl'  =>'http://120.24.37.249:100/DBlogArticle',
-							'token'  =>'',
-						],
+			
 			'DMenu' => [
 							'moduleDir' =>'\appdata\code\Blog\DMenu',
 							'apiurl'  =>'http://120.24.37.249:100/dmenu',
