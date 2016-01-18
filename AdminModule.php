@@ -2,16 +2,34 @@
 namespace fec;
 use Yii;
 use fec\helpers\CConfig;
-class BaseModule extends \yii\base\Module
+class AdminModule extends \yii\base\Module
 {
   
     public $controllerNamespace ;
 	public $_currentDir ;
 	public $_currentNameSpace ;
 	
+	 public function init()
+    {
+		parent::init();  
+		# 配置config文件
+		$config_file_dir = $this->_currentDir . '/etc/config.php';
+		if(file_exists($config_file_dir)){
+			$params_data = (require($config_file_dir));
+			
+		}
+		
+		# 设置参数
+		$params_data['_currentDir'] 		= $this->_currentDir;
+		$params_data['_currentNameSpace'] 	= $this->_currentNameSpace;
+		Yii::configure($this, ['params'=> $params_data]);
+		
+		# 默认layout文件
+		$this->layout = $this->layout ? $this->layout : "main.php";
+		
+    }
 	
-	
-	
+	/*
 	public function init()
     {
         parent::init();
@@ -34,5 +52,5 @@ class BaseModule extends \yii\base\Module
 		
 		$this->params['blockDir'] = str_replace("\\controllers","",$this->controllerNamespace);
     }
-	
+	*/
 }
