@@ -16,10 +16,10 @@ class CCache{
 	}
 	
 	# ÉèÖÃ data  cache
-	public static function set($handle,$data){
+	public static function set($handle,$data,$timeout = 60){
 		
 		$cache = self::cacheM();
-		return $cache->set($handle,$data);
+		return $cache->set($handle,$data,$timeout);
 		
 	}
 

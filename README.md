@@ -3,24 +3,16 @@ Yii2 Fancy Ecommerce  (FEC)
 
 
 github: https://github.com/fancyecommerce/yii2-fec
-
-[![Latest Stable Version](https://poser.pugx.org/myweishanli/yii2-extjs-rbac/v/stable.png)](https://github.com/fancyecommerce/yii2-fec)
-[![Total Downloads](https://poser.pugx.org/myweishanli/yii2-extjs-rbac/downloads.png)](https://github.com/fancyecommerce/yii2-fec)
-
-> 注: 功能正在开发中...
-
-> 更详细的配置说明文档正在编写中...
+[![Latest Stable Version](https://poser.pugx.org/fancyecommerce/fec/v/stable)](https://packagist.org/packages/fancyecommerce/fec) [![Total Downloads](https://poser.pugx.org/fancyecommerce/fec/downloads)](https://packagist.org/packages/fancyecommerce/fec) [![Latest Unstable Version](https://poser.pugx.org/fancyecommerce/fec/v/unstable)](https://packagist.org/packages/fancyecommerce/fec) [![License](https://poser.pugx.org/fancyecommerce/fec/license)](https://packagist.org/packages/fancyecommerce/fec)
 
 > QQ: 2358269014
 
-> 有任何疑问可以发邮件到 2358269014@qq.com
+> 邮箱：2358269014@qq.com
 
 ---
 有任何建议或者需求欢迎来反馈 [issues](../../issues)
 
 欢迎点击右上方的 star 收藏
-
-fork 参与开发，欢迎提交 Pull Requests，然后 Pull Request
 
 ---
 
@@ -37,11 +29,11 @@ composer require --prefer-dist fancyecommerce/fec
 或添加
 
 ```
-"fancyecommerce/fec": "~1.0.0"
+"fancyecommerce/fec": "~1.1.2"
 composer install
 ```
 
-2、使用
+2、使用 CProflie
 ------------
 
 
