@@ -1,9 +1,15 @@
 <?php
+/*
+存放一些基本的非数据库数据。
+一般都是数组设置。
+
+*/
 namespace fec\helpers;
 use Yii; 
 
 class CRequest 
 {
+	//const session;
 	public static function getRequest(){
 		return Yii::$app->request;
 	}
@@ -14,11 +20,16 @@ class CRequest
 		}else{
 			$v = self::getRequest()->post();
 		}
+		if($key == "_id"){
+			$v = (int)$v;
+		}
 		return $v;
 	}
 	
 	public static function set($key,$val){
-		return self::getRequest()->set($key,$val);
+		
+		self::getRequest()->set($key,$val);
+		
 	}
 	
 	public static function get($key = ""){
@@ -27,18 +38,19 @@ class CRequest
 		}else{
 			$v = self::getRequest()->get();
 		}
+		if($key == "_id"){
+			$v = (int)$v;
+		}
 		return $v;
 	}
-	# 得到get 和 post的所有数据。 
-	# 如果一个值在get和post中都存在，则post优先。
 	public static function param($key = ''){
 		if($key){
 			$get = self::get();
 			$post = self::post();
-			if($post[$key]){
-				return $post[$key] ;
-			}else if($get[$key]){
+			if($get[$key]){
 				return $get[$key] ;
+			}else if($post[$key]){
+				return $post[$key] ;
 			}else{
 				return "";
 			}
@@ -48,22 +60,25 @@ class CRequest
 			return array_merge($get,$post);
 		}
 	}
-	# 得到csrfName
 	public static function getCsrfName(){
 		return self::getRequest()->csrfParam;
 	}
-	#
+	
 	public static function getCsrfValue(){
 		return self::getRequest()->getCsrfToken(); 
 	}
 	//得到csrf的input 的 html
 	public static function getCsrfInputHtml(){
-		echo '<input class="thiscsrf" type="hidden" value="'.self::getCsrfValue().'" name="'.self::getCsrfName().'" />';
+		echo '<input class="thiscsrf" type="hidden" value="'.self::getRequest()->getCsrfToken().'" name="'.self::getRequest()->csrfParam.'" />';
 	}
         
-       
+        //得到csrf的input 的 html
+	public static function returnCsrfInputHtml(){
+		return '<input class="thiscsrf" type="hidden" value="'.self::getRequest()->getCsrfToken().'" name="'.self::getRequest()->csrfParam.'" />';
+	}
+	
 	public static function getCsrfString(){
-		return self::getCsrfName()."=".self::getCsrfValue();
+		return self::getRequest()->csrfParam."=".self::getRequest()->getCsrfToken();
 	}
 	
 }

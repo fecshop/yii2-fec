@@ -11,7 +11,6 @@ class CModel
 
 
 	# 将models 的错误信息转换成字符串
-	# 
 	public static function getErrorStr($errors){
 		$str = '';
 		if(is_array($errors)){

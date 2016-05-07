@@ -9,13 +9,13 @@ class CCache{
 		return Yii::$app->cache;
 	}
 	
-	# 得到 cache
+	# 得到 data  cache
 	public static function get($handle){
 		$cache = self::cacheM();
 		return $cache->get($handle);
 	}
 	
-	# 设置 cache
+	# 设置 data  cache
 	public static function set($handle,$data){
 		
 		$cache = self::cacheM();
@@ -23,7 +23,7 @@ class CCache{
 		
 	}
 
-	# 刷新 Cache
+	# 刷新 Data  Cache
 	public static function flushAll(){
 		$cache = self::cacheM();
 		$cache->flush();

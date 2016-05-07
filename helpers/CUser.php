@@ -28,7 +28,7 @@ class CUser
 	public static function isSuperUser($user = ''){
 		$superUser = self::getSuperUserConfig();
 		if(!$user){
-			$user = self::getCurrentUsername();
+			$user = self::getCurrentUsername;
 		}
 		if($user && in_array($user,$superUser)){
 			return true;

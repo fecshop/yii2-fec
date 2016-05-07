@@ -1,104 +1,15 @@
 <?php
+/*
+此类主要是数据库的操作例子，没有功能。
+
+*/
 namespace fec\helpers;
 use Yii; 
+#http://blog.csdn.net/terry_water/article/details/50130275
 class CDB
 {	
-	
-	
-	public static $db;
-	
-	# 得到当前的db
-	public static function getDb($db_name = 'db'){
-		if(!self::$db){
-			if(!$db_name){
-				$db_name = 'db';
-			}
-			self::$db = Yii::$app->$db_name;
-		}
-		return self::$db;
-	}
-	
-
-	#1 .通过sql查看所有的记录
-	# example:  CDB::findBySql('select * from sales_order_info where order_id > :order_id'
-	#							,[':order_id'=>1 ]);
-	public static function findAllBySql($sql,$data=[],$db_name=''){
-		# example: $sql = 'SELECT * FROM  sales_flat_quote';
-		$db = self::getDb($db_name);
-		$result = $db->createCommand($sql,$data)
-					->queryAll();
-		return $result;
-	}
-	
-	
-	
-	#2 .通过sql查看一条记录
-	# example: CDB::findOneBySql('select * from sales_order_info where order_id = :order_id'
-	#							,[':order_id'=>1 ]);
-	public static function findOneBySql($sql,$data=[],$db_name=''){
-		# example: $sql ='SELECT * FROM post WHERE id=1'
-		$db = self::getDb($db_name);
-		$result = $db->createCommand($sql,$data)
-				->queryOne();
-		return $result;
-	}
-	
-	#3 .通过sql插入记录
-	# $sql 	= "insert into sales_order_info (increment_id) values (:increment_id) ";
-	# $data = ['increment_id'=>'eeeeeeeeee'];
-	# $dd 	= DB::insertBySql($sql,$data);
-	public static function insertBySql($sql,$data=[],$db_name=''){
-		$db = self::getDb($db_name);
-		$result = $db->createCommand($sql,$data)
-				->execute();
-		return $result;
-	
-	}
-	
-	#4 .通过sql更新
-	# $sql = "update sales_order_info set increment_id = :iid where increment_id = :increment_id";
-	# $data = ['iid'=>'ddd','increment_id'=>'eeeeeeeeee'];
-	# $dd = DB::insertBySql($sql,$data);
-	public static function updateBySql($sql,$data=[],$db_name=''){
-		$db = self::getDb($db_name);
-		$result = $db->createCommand($sql,$data)
-				->execute();
-		return $result;
-	
-	}
-	
-	#5. 通过sql删除
-	# $sql = "delete from sales_order_info  where increment_id = :increment_id";
-	# $data = ['increment_id'=>'eeeeeeeeee'];
-	# $dd = DB::insertBySql($sql,$data);
-	public static function deleteBySql($sql,$data=[],$db_name=''){
-		$db = self::getDb($db_name);
-		$result = $db->createCommand($sql,$data)
-				->execute();
-		return $result;
-	
-	}
-	
-	#6. 批量插入数据方式
-	# $table 		= 'sales_order_info';
-	# $columnsArr = ['increment_id','order_status'];
-	# $valueArr 	= [
-	# 				['Tom', 30],
-	# 				['Jane', 20],
-	# 				['Linda', 25]
-	# 				];
-	# DB::batchInsert($table,$columnsArr,$valueArr);
-		
-	public static function batchInsert($table,$columnsArr,$valueArr,$db_name=''){
-		$db = self::getDb($db_name);
-		$db->createCommand()
-					->batchInsert($table,$columnsArr,$valueArr)
-					->execute();
-	
-	}
-	
-	
-	# 一：常见操作-数据表查询
+	# http://www.yiichina.com/doc/guide/2.0/db-active-record
+	# 常见操作1:数据表查询
 	/*
 	@单一查询，返回是一个对象，可通过数组的形式调用 $customer['quote_id'];
 		还可以通过属性的方式 $customer->quote_id;
@@ -196,9 +107,107 @@ class CDB
 		php $customer = new Customer();
 		$customer->loadDefaultValues(); // ... 渲染 $customer 的 HTML 表单 ... `
 	*/
+
+	
+	public static function getDefaultDb(){
+		return Yii::$app->db;
+	}
+	
+
+	#1 .通过sql查看所有的记录
+	# example:  DB::findBySql('select * from sales_order_info where order_id > :order_id'
+	#							,[':order_id'=>1 ]);
+	public static function findAllBySql($sql,$data=[],$db=''){
+		# example: $sql = 'SELECT * FROM  sales_flat_quote';
+		if(!$db){
+			$db = self::getDefaultDb();
+		}
+		$result = $db->createCommand($sql,$data)
+					->queryAll();
+		return $result;
+	}
+	
+	
+	
+	#2 .通过sql查看一条记录
+	# example: DB::findOneBySql('select * from sales_order_info where order_id = :order_id'
+	#							,[':order_id'=>1 ]);
+	public static function findOneBySql($sql,$data=[],$db=''){
+		# example: $sql ='SELECT * FROM post WHERE id=1'
+		if(!$db){
+			$db = self::getDefaultDb();
+		}
+		$result = $db->createCommand($sql,$data)
+				->queryOne();
+		return $result;
+	}
+	
+	#3 .通过sql插入记录
+	# $sql 	= "insert into sales_order_info (increment_id) values (:increment_id) ";
+	# $data = ['increment_id'=>'eeeeeeeeee'];
+	# $dd 	= DB::insertBySql($sql,$data);
+	public static function insertBySql($sql,$data=[],$db=''){
+		if(!$db){
+			$db = self::getDefaultDb();
+		}
+		$result = $db->createCommand($sql,$data)
+				->execute();
+		return $result;
+	
+	}
+	
+	#4 .通过sql更新
+	# $sql = "update sales_order_info set increment_id = :iid where increment_id = :increment_id";
+	# $data = ['iid'=>'ddd','increment_id'=>'eeeeeeeeee'];
+	# $dd = DB::insertBySql($sql,$data);
+	public static function updateBySql($sql,$data=[],$db=''){
+		if(!$db){
+			$db = self::getDefaultDb();
+		}
+		$result = $db->createCommand($sql,$data)
+				->execute();
+		return $result;
+	
+	}
+	
+	#5. 通过sql删除
+	# $sql = "delete from sales_order_info  where increment_id = :increment_id";
+	# $data = ['increment_id'=>'eeeeeeeeee'];
+	# $dd = DB::insertBySql($sql,$data);
+	public static function deleteBySql($sql,$data=[],$db=''){
+		if(!$db){
+			$db = self::getDefaultDb();
+		}
+		$result = $db->createCommand($sql,$data)
+				->execute();
+		return $result;
+	
+	}
+	
+	#6. 批量插入数据方式
+	# $table 		= 'sales_order_info';
+	# $columnsArr = ['increment_id','order_status'];
+	# $valueArr 	= [
+	# 				['Tom', 30],
+	# 				['Jane', 20],
+	# 				['Linda', 25]
+	# 				];
+	# DB::batchInsert($table,$columnsArr,$valueArr);
+		
+	public static function batchInsert($table,$columnsArr,$valueArr,$db=''){
+		if(!$db){
+			$db = self::getDefaultDb();
+		}
+		$db->createCommand()
+					->batchInsert($table,$columnsArr,$valueArr)
+					->execute();
+	
+	}
+	
+	
 	
 	/*
-	 常见操作6：事务操作
+	事务操作
 		# 开始事务
 		$innerTransaction = Yii::$app->db->beginTransaction();
 		try {
@@ -209,17 +218,35 @@ class CDB
 	
 	*/
 	
-	 
+	
 	/*
-	各种条件查询。 
+	事务嵌套：
+	$outerTransaction = $db->beginTransaction();
+	try {
+		$db->createCommand($sql1)->execute();
+
+		$innerTransaction = $db->beginTransaction();
+		try {
+			$db->createCommand($sql2)->execute();
+			$innerTransaction->commit();
+		} catch (Exception $e) {
+			$innerTransaction->rollBack();
+		}
+
+		$outerTransaction->commit();
+	} catch (Exception $e) {
+		$outerTransaction->rollBack();
+	}
+	
+	
 	# where
-    where('status=1') 
-    where('status=:status', [':status' => $status])
+    where('status=1')->  
+    where('status=:status', [':status' => $status])->  
     where([  
         'status' => 10,  
         'type' => null,  
         'id' => [4, 8, 15],  
-    ]) 
+    ])->  
     -------  
     $userQuery = (new Query())->select('id')->from('user');  
     // ...WHERE `id` IN (SELECT `id` FROM `user`)  

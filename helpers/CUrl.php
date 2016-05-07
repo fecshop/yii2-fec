@@ -7,6 +7,7 @@ use Yii;
 class CUrl
 {
 	
+	
 	# 获取首页地址。
 	public static function getHomeUrl(){
 		return Yii::$app->getHomeUrl();
@@ -80,7 +81,7 @@ class CUrl
 		return Yii::$app->request->getPathInfo();
 	}
 	# 得到url    ，譬如  http://www.x.com/ss/dd/aa?aaaa=ddddd   返回 /ss/dd/aa?aaaa=ddddd   
-	public static function getUrlKeyWithParam(){
+	public static function getUrlWithParam(){
 		return Yii::$app->getRequest()->url;
 	}
 	

@@ -1,6 +1,9 @@
 <?php
 namespace fec\helpers;
 use Yii; 
+//use yii\base\Model;
+//use backend\models\helper\Base.php
+# myapp\fec\helper\CConfig::getTheme();
 class CConfig
 {
 	
