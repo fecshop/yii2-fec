@@ -1,13 +1,11 @@
 <?php
 namespace fec\helpers;
 use Yii; 
-//use yii\base\Model;
-//use backend\models\helper\Base.php
-# myapp\fec\helper\CConfig::getTheme();
+# 一些常用的函数
 class CFunc
 {
 	
-	
+	# 1.object 转换成  数组。
 	public static function object_to_array($obj)
 	{
 		//$_arr = is_object($obj) ? get_object_vars($obj) : $obj;
@@ -28,6 +26,8 @@ class CFunc
 		}
 		
 	}
+	
+	# 2.是否是时间格式
 	public static function is_time($time)
 	{
 		$time = trim($time);
@@ -39,23 +39,57 @@ class CFunc
 		return ($r1 || $r2 );
 	}
 	
-	
+	# 3.对二维数组进行排序
+	/*  譬如数组
+		$arr = [
+			['name' = 'x1','age'=33],
+			['name' = 'y1','age'=11],
+			['name' = 'a1','age'=66],
+			['name' = 't1','age'=44],
+		];
+		$result = CFunc::array_sort($arr,'name','asc');
+	*/
+	# 二维数组进行排序
+	# $array为要排序的数组
+	# $keys为要用来排序的键名,二维数组的key
+	# $type默认为升序排序 
 	public static function array_sort($array,$keys,$type='asc'){  
-		//$arrayΪҪ���������,$keysΪҪ��������ļ���,$typeĬ��Ϊ��������  
+		 
 		$keysvalue = $new_array = array();  
 		foreach ($array as $k=>$v){  
-		$keysvalue[$k] = $v[$keys];  
+			$keysvalue[$k] = $v[$keys];  
 		}  
 		if($type == 'asc'){  
-		asort($keysvalue);  
+			asort($keysvalue);  
 		}else{  
-		arsort($keysvalue);  
+			arsort($keysvalue);  
 		}  
 		reset($keysvalue);  
 		foreach ($keysvalue as $k=>$v){  
-		$new_array[$k] = $array[$k];  
+			$new_array[$k] = $array[$k];  
 		}  
 		return $new_array;  
+	}
+	
+	# 4.得到真实的IP
+	public static function  get_real_ip(){
+		$ip=false;
+		if(!empty($_SERVER["HTTP_CLIENT_IP"])){
+			$ip = $_SERVER["HTTP_CLIENT_IP"];
+		}
+		if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+			$ips = explode (", ", $_SERVER['HTTP_X_FORWARDED_FOR']);
+			if ($ip) { 
+				array_unshift($ips, $ip); $ip = FALSE; 
+			}
+			for ($i = 0; $i < count($ips); $i++) {
+				if (!eregi ("^(10|172\.16|192\.168)\.", $ips[$i])) {
+					$ip = $ips[$i];
+					break;
+				}
+			}
+			}
+		return ($ip ? $ip : $_SERVER['REMOTE_ADDR']);
 	}
 	
 }

@@ -4,7 +4,7 @@ use Yii;
 class CDoc
 {
 	
-	
+	# 3.閫氳繃鏁扮粍鐢熸垚html鏂囨。鏍峰紡
 	/*
 		$array = [
 			'title' 		=> '1111',
@@ -16,7 +16,6 @@ class CDoc
 		];
 	
 	*/
-	# 通过数组生成html文档样式
 	public static function tableformat($array){  
 		
 		

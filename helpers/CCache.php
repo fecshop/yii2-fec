@@ -3,27 +3,29 @@ namespace fec\helpers;
 use Yii;
 class CCache{
 	
-	const ALL_ROLE_KEY_CACHE_HANDLE  = 'all_role_key_cache';  # ²Ëµ¥role cache
-	# µÃµ½cache ×é¼þ¡£
+	const ALL_ROLE_KEY_CACHE_HANDLE  = 'all_role_key_cache';  # èœå•role cache
+	# å¾—åˆ°cache ç»„ä»¶ã€‚
 	public static function cacheM(){
 		return Yii::$app->cache;
 	}
 	
-	# µÃµ½ data  cache
+	# 1.å¾—åˆ° cache
 	public static function get($handle){
 		$cache = self::cacheM();
 		return $cache->get($handle);
 	}
 	
-	# ÉèÖÃ data  cache
-	public static function set($handle,$data){
+	# 2.è®¾ç½® cache
+	public static function set($handle,$data,$timeout=0){
 		
 		$cache = self::cacheM();
+		if($timeout)
+			return $cache->set($handle,$data,$timeout);
 		return $cache->set($handle,$data);
 		
 	}
 
-	# Ë¢ÐÂ Data  Cache
+	# 3.åˆ·æ–° Cache
 	public static function flushAll(){
 		$cache = self::cacheM();
 		$cache->flush();

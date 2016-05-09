@@ -2,14 +2,6 @@
 namespace fec\helpers;
 use Yii; 
 use  yii\captcha\CaptchaAction;
-/*
-
-echo fec\helpers\CCaptcha::widget([
-				'name' => 'captcha',
-				'class' => Captcha::className(),
-		]);
-
-*/
 class CCaptchaAction extends CaptchaAction
 {
 	

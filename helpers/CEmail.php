@@ -15,11 +15,11 @@ class CEmail
 		if(!$from || !$to || !$title || !$content){
 			return false;
 		} 
-		# ÑéÖ¤ÓÊÏä¸ñÊ½ÊÇ·ñÕıÈ·
+		# éªŒè¯é‚®ç®±æ ¼å¼æ˜¯å¦æ­£ç¡®
 		if(!self::email_validation($from)){
 			return false;
 		}
-		# ÑéÖ¤ÓÊÏä¸ñÊ½ÊÇ·ñÕıÈ·
+		# éªŒè¯é‚®ç®±æ ¼å¼æ˜¯å¦æ­£ç¡®
 		if(!self::email_validation($to)){
 			return false;
 		}
@@ -36,8 +36,8 @@ class CEmail
 	
 	}
 	
-	# ·¢ËÍÒ»·âÓÊ¼ş
-	# $from $to $title $content ²»ÄÜÎª¿Õ¡£
+	# 1.å‘é€ä¸€å°é‚®ä»¶
+	# $from $to $title $content ä¸èƒ½ä¸ºç©ºã€‚
 	public static function sendMail($from,$to,$title,$content,$is_html=1){
 		$m = self::getMailOb($from,$to,$title,$content,$is_html);
 		if($m){
@@ -47,9 +47,10 @@ class CEmail
 		
 		return false;
 	}
+	
+	# 2.æ‰¹é‡å‘é€é‚®ä»¶
 	/*
-	ÅúÁ¿·¢ËÍÓÊ¼ş
-	²ÎÊı£ºÊı×é¸ñÊ½ÈçÏÂ£º
+	å‚æ•°ï¼šæ•°ç»„æ ¼å¼å¦‚ä¸‹ï¼š
 	$arr = [
 		[
 			'from' 	=>'zqy234@126.com',
@@ -66,10 +67,10 @@ class CEmail
 			'is_html' => 0,
 		],
 	];
-	 forece ´ú±í¶àËÍ¶à¸öÓÊ¼ş£¬ÆäÖĞÒ»¸öÓÊ¼şµÄ¸ñÊ½»òÕßÊı¾İÎª¿ÕµÄÇé¿öÏÂ£¬ÆäËû·ûºÏ
-	 ±ê×¼µÄÓÊ¼şÊÇ·ñ·¢ËÍ
-	 force=1,´ú±íÆäËû·ûºÏ¸ñÊ½µÄÓÊ¼ş·¢ËÍ
-	 force=0,Èç¹ûÄ³¸öÓÊ¼şÄÚÈİÓĞÎÊÌâ£¬È«²¿²»·¢ËÍ¡£
+	 forece ä»£è¡¨å¤šé€å¤šä¸ªé‚®ä»¶ï¼Œå…¶ä¸­ä¸€ä¸ªé‚®ä»¶çš„æ ¼å¼æˆ–è€…æ•°æ®ä¸ºç©ºçš„æƒ…å†µä¸‹ï¼Œå…¶ä»–ç¬¦åˆ
+	 æ ‡å‡†çš„é‚®ä»¶æ˜¯å¦å‘é€
+	 force=1,ä»£è¡¨å…¶ä»–ç¬¦åˆæ ¼å¼çš„é‚®ä»¶å‘é€
+	 force=0,å¦‚æœæŸä¸ªé‚®ä»¶å†…å®¹æœ‰é—®é¢˜ï¼Œå…¨éƒ¨ä¸å‘é€ã€‚
 	*/
 	public static function sendMultipleEmail($arr,$forece=1){
 		
@@ -83,7 +84,7 @@ class CEmail
 			
 			$m = self::getMailOb($from,$to,$title,$content,$is_html);
 			if(!$m){
-				if(!$forece){ #Èç¹ûÊı¾İ¸ñÊ½ÓĞÎÊÌâ£¬forceÎª0£¬ÔòÈ«²¿²»·¢ËÍ
+				if(!$forece){ #å¦‚æœæ•°æ®æ ¼å¼æœ‰é—®é¢˜ï¼Œforceä¸º0ï¼Œåˆ™å…¨éƒ¨ä¸å‘é€
 					return false;
 				}
 			}else{
@@ -93,7 +94,7 @@ class CEmail
 		if(!empty($messages)){
 			$count = count($messages);
 			self::getMailer()->sendMultiple($messages);
-			# ·µ»Ø·¢ËÍµÄÓÊ¼şµÄ¸öÊı¡£
+			# è¿”å›å‘é€çš„é‚®ä»¶çš„ä¸ªæ•°ã€‚
 			return $count;
 		}
 		return false;
@@ -101,7 +102,7 @@ class CEmail
 	
 	
 	
-	# ÑéÖ¤ÓÊÏä¸ñÊ½ÊÇ·ñÕıÈ·
+	# 3.éªŒè¯é‚®ç®±æ ¼å¼æ˜¯å¦æ­£ç¡®
 	public static  function email_validation($mail)
 	{
 		if($mail != '')

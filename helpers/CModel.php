@@ -1,7 +1,7 @@
 <?php
 /*
-´æ·ÅÒ»Ð©»ù±¾µÄ·ÇÊý¾Ý¿âÊý¾Ý¡£
-Ò»°ã¶¼ÊÇÊý×éÉèÖÃ¡£
+å­˜æ”¾ä¸€äº›åŸºæœ¬çš„éžæ•°æ®åº“æ•°æ®ã€‚
+ä¸€èˆ¬éƒ½æ˜¯æ•°ç»„è®¾ç½®ã€‚
 
 */
 namespace fec\helpers;
@@ -10,7 +10,7 @@ class CModel
 {
 
 
-	# ½«models µÄ´íÎóÐÅÏ¢×ª»»³É×Ö·û´®
+	# 1.å°†models çš„é”™è¯¯ä¿¡æ¯è½¬æ¢æˆå­—ç¬¦ä¸²
 	public static function getErrorStr($errors){
 		$str = '';
 		if(is_array($errors)){

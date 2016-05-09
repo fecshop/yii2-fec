@@ -1,127 +1,30 @@
 <?php
-/*
-´ËÀàÖ÷ÒªÊÇÊý¾Ý¿âµÄ²Ù×÷Àý×Ó£¬Ã»ÓÐ¹¦ÄÜ¡£
-
-*/
 namespace fec\helpers;
 use Yii; 
-#http://blog.csdn.net/terry_water/article/details/50130275
 class CDB
 {	
-	# http://www.yiichina.com/doc/guide/2.0/db-active-record
-	# ³£¼û²Ù×÷1:Êý¾Ý±í²éÑ¯
-	/*
-	@µ¥Ò»²éÑ¯£¬·µ»ØÊÇÒ»¸ö¶ÔÏó£¬¿ÉÍ¨¹ýÊý×éµÄÐÎÊ½µ÷ÓÃ $customer['quote_id'];
-		»¹¿ÉÒÔÍ¨¹ýÊôÐÔµÄ·½Ê½ $customer->quote_id;
-		$customer = Customer::findOne(['customer_id' => (int)$customer_id]);
 	
-	@È«²¿²éÑ¯£º·µ»ØµÄÊÇ¶ÔÏó
-		$customers = Customer::find()
-			->where(['status' => Customer::STATUS_ACTIVE])
-			->orderBy('id')
-			->all();
-	@È«²¿²éÑ¯£º·µ»ØµÄÊÇÊý×é  (²éÑ¯100-109ÐÐ)
-		$customers = Customer::find()
-			->asArray()
-			->where(['status' => Customer::STATUS_ACTIVE])
-			->orderBy(['id' => SORT_ASC,'name' => SORT_DESC])
-			->limit(10)
-			->offset(100)
-			->all();
-	@²éÑ¯¸öÊý£º
-		$count = Customer::find()
-			->where(['status' => Customer::STATUS_ACTIVE])
-			->count();
-	@ÒÔidÎªË÷ÒýµÄ·½Ê½²éÑ¯
-		$customers = Customer::find()->indexBy('id')->all();
-		
-	@ÓÃÔ­ÉúµÄsql²éÑ¯£º£¨Ö»ÄÜÕë¶ÔÕâÒ»¸ö±í£©
-		$sql = 'SELECT * FROM customer';
-		$customers = Customer::findBySql($sql)->all();	
-		
-	@ÅúÁ¿»ñÈ¡Êý¾Ý£¨²»³£ÓÃ£¬Õë¶Ô´óÊý¾Ý£©
-		Ò»´ÎÌáÈ¡ 10 ¸ö¿Í»§ÐÅÏ¢
-		foreach (Customer::find()->batch(10) as $customers) {
-			$customers ÊÇ 10 ¸ö»ò¸üÉÙµÄ¿Í»§¶ÔÏóµÄÊý×é
+	
+	public static $db;
+	
+	# 1.å¾—åˆ°å½“å‰çš„db
+	public static function getDb($db_name = 'db'){
+		if(!self::$db){
+			if(!$db_name){
+				$db_name = 'db';
+			}
+			self::$db = Yii::$app->$db_name;
 		}
-		Ò»´ÎÌáÈ¡ 10 ¸ö¿Í»§²¢Ò»¸öÒ»¸öµØ±éÀú´¦Àí
-		foreach (Customer::find()->each(10) as $customer) {
-			$customer ÊÇÒ»¸ö ¡±Customer¡° ¶ÔÏó
-		}
-		Ì°À·¼ÓÔØÄ£Ê½µÄÅú´¦Àí²éÑ¯
-		foreach (Customer::find()->with('orders')->each() as $customer) {
-		}
-	*/
-	
-	
-	# ³£¼û²Ù×÷2:Êý¾Ý±í²åÈë
-	/*
-	@²åÈëÐÂ¿Í»§µÄ¼ÇÂ¼
-		$customer = new Customer();
-		$customer->name = 'James';
-		$customer->email = 'james@example.com';
-		//µÈÍ¬ÓÚ $customer->insert();
-		$customer->save();  
-	
-	@Í¨¹ýpostÊý×éµÄ·½Ê½¸³Öµ
-		$model = new Customer;
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-		
-		}
-		####ÓÉÓÚAR¼Ì³Ð×Ôyii\base\Model£¬ËùÒÔËüÍ¬ÑùÒ²Ö§³ÖModelµÄÊý¾ÝÊäÈë¡¢ÑéÖ¤µÈÌØÐÔ¡£ÀýÈç£¬Äã¿ÉÒÔÉùÃ÷Ò»¸örules·½·¨ÓÃÀ´¸²¸Çµôyii\base\Model::rules()ÀïµÄ£»ÄãÒ²¿ÉÒÔ¸øARÊµÀýÅúÁ¿¸³Öµ£»ÄãÒ²¿ÉÒÔÍ¨¹ýµ÷ÓÃyii\base\Model::validate()Ö´ÐÐÊý¾ÝÑéÖ¤¡£
-		####µ±Äãµ÷ÓÃ save()¡¢insert()¡¢update() ÕâÈý¸ö·½·¨Ê±£¬»á×Ô¶¯µ÷ÓÃyii\base\Model::validate()·½·¨¡£Èç¹ûÑéÖ¤Ê§°Ü£¬Êý¾Ý½«²»»á±£´æ½øÊý¾Ý¿â¡£
-	
-	*/
-	
-	# ³£¼û²Ù×÷3:Êý¾Ý±í¸üÐÂ
-	/*
-	@¸üÐÂÏÖÓÐ¿Í»§¼ÇÂ¼
-		$customer = Customer::findOne(['id' => 1]);
-		$customer->email = 'james@example.com';
-		//µÈÍ¬ÓÚ $customer->update();
-		$customer->save();  
-		
-	@ËùÓÐ¿Í»§µÄage£¨ÄêÁä£©×Ö¶Î¼Ó1£º
-		Customer::updateAllCounters(['age' => 1]);		
-	*/
-	
-	
-	# ³£¼û²Ù×÷4£ºÊý¾Ý±íÊý¾ÝÉ¾³ý
-	/*
-	@É¾³ýÒÑÓÐ¿Í»§¼ÇÂ¼
-		$customer = Customer::findOne(['id' => 1]);
-		$customer->delete();
-
-	@É¾³ý¶à¸öÄêÁä´óÓÚ20£¬ÐÔ±ðÎªÄÐ£¨Male£©µÄ¿Í»§¼ÇÂ¼
-		Customer::deleteAll('age > :age AND gender = :gender', [':age' => 20, ':gender' => 'M']);
-			
-			
-	*/
-	
-	# ³£¼û²Ù×÷5£º¶ÁÈ¡Ä¬ÈÏÖµ
-	/*
-	
-		ÄãµÄ±íÁÐÒ²Ðí¶¨ÒåÁËÄ¬ÈÏÖµ¡£ÓÐÊ±ºò£¬Äã¿ÉÄÜÐèÒªÔÚÊ¹ÓÃweb±íµ¥µÄÊ±ºò¸øARÔ¤ÉèÒ»Ð©Öµ¡£
-		Èç¹ûÄãÐèÒªÕâÑù×ö£¬¿ÉÒÔÔÚÏÔÊ¾±íµ¥ÄÚÈÝÇ°Í¨¹ýµ÷ÓÃ
-		loadDefaultValues()·½·¨À´ÊµÏÖ£º 
-		php $customer = new Customer();
-		$customer->loadDefaultValues(); // ... äÖÈ¾ $customer µÄ HTML ±íµ¥ ... `
-	*/
-
-	
-	public static function getDefaultDb(){
-		return Yii::$app->db;
+		return self::$db;
 	}
 	
 
-	#1 .Í¨¹ýsql²é¿´ËùÓÐµÄ¼ÇÂ¼
-	# example:  DB::findBySql('select * from sales_order_info where order_id > :order_id'
+	# 1.é€šè¿‡sqlæŸ¥çœ‹æ‰€æœ‰çš„è®°å½•
+	# example:  CDB::findBySql('select * from sales_order_info where order_id > :order_id'
 	#							,[':order_id'=>1 ]);
-	public static function findAllBySql($sql,$data=[],$db=''){
+	public static function findAllBySql($sql,$data=[],$db_name=''){
 		# example: $sql = 'SELECT * FROM  sales_flat_quote';
-		if(!$db){
-			$db = self::getDefaultDb();
-		}
+		$db = self::getDb($db_name);
 		$result = $db->createCommand($sql,$data)
 					->queryAll();
 		return $result;
@@ -129,62 +32,54 @@ class CDB
 	
 	
 	
-	#2 .Í¨¹ýsql²é¿´Ò»Ìõ¼ÇÂ¼
-	# example: DB::findOneBySql('select * from sales_order_info where order_id = :order_id'
+	# 2.é€šè¿‡sqlæŸ¥çœ‹ä¸€æ¡è®°å½•
+	# example: CDB::findOneBySql('select * from sales_order_info where order_id = :order_id'
 	#							,[':order_id'=>1 ]);
-	public static function findOneBySql($sql,$data=[],$db=''){
+	public static function findOneBySql($sql,$data=[],$db_name=''){
 		# example: $sql ='SELECT * FROM post WHERE id=1'
-		if(!$db){
-			$db = self::getDefaultDb();
-		}
+		$db = self::getDb($db_name);
 		$result = $db->createCommand($sql,$data)
 				->queryOne();
 		return $result;
 	}
 	
-	#3 .Í¨¹ýsql²åÈë¼ÇÂ¼
+	# 3.é€šè¿‡sqlæ’å…¥è®°å½•
 	# $sql 	= "insert into sales_order_info (increment_id) values (:increment_id) ";
 	# $data = ['increment_id'=>'eeeeeeeeee'];
 	# $dd 	= DB::insertBySql($sql,$data);
-	public static function insertBySql($sql,$data=[],$db=''){
-		if(!$db){
-			$db = self::getDefaultDb();
-		}
+	public static function insertBySql($sql,$data=[],$db_name=''){
+		$db = self::getDb($db_name);
 		$result = $db->createCommand($sql,$data)
 				->execute();
 		return $result;
 	
 	}
 	
-	#4 .Í¨¹ýsql¸üÐÂ
+	# 4.é€šè¿‡sqlæ›´æ–°
 	# $sql = "update sales_order_info set increment_id = :iid where increment_id = :increment_id";
 	# $data = ['iid'=>'ddd','increment_id'=>'eeeeeeeeee'];
 	# $dd = DB::insertBySql($sql,$data);
-	public static function updateBySql($sql,$data=[],$db=''){
-		if(!$db){
-			$db = self::getDefaultDb();
-		}
+	public static function updateBySql($sql,$data=[],$db_name=''){
+		$db = self::getDb($db_name);
 		$result = $db->createCommand($sql,$data)
 				->execute();
 		return $result;
 	
 	}
 	
-	#5. Í¨¹ýsqlÉ¾³ý
+	# 5.é€šè¿‡sqlåˆ é™¤
 	# $sql = "delete from sales_order_info  where increment_id = :increment_id";
 	# $data = ['increment_id'=>'eeeeeeeeee'];
 	# $dd = DB::insertBySql($sql,$data);
-	public static function deleteBySql($sql,$data=[],$db=''){
-		if(!$db){
-			$db = self::getDefaultDb();
-		}
+	public static function deleteBySql($sql,$data=[],$db_name=''){
+		$db = self::getDb($db_name);
 		$result = $db->createCommand($sql,$data)
 				->execute();
 		return $result;
 	
 	}
 	
-	#6. ÅúÁ¿²åÈëÊý¾Ý·½Ê½
+	# 6.æ‰¹é‡æ’å…¥æ•°æ®æ–¹å¼
 	# $table 		= 'sales_order_info';
 	# $columnsArr = ['increment_id','order_status'];
 	# $valueArr 	= [
@@ -194,10 +89,8 @@ class CDB
 	# 				];
 	# DB::batchInsert($table,$columnsArr,$valueArr);
 		
-	public static function batchInsert($table,$columnsArr,$valueArr,$db=''){
-		if(!$db){
-			$db = self::getDefaultDb();
-		}
+	public static function batchInsert($table,$columnsArr,$valueArr,$db_name=''){
+		$db = self::getDb($db_name);
 		$db->createCommand()
 					->batchInsert($table,$columnsArr,$valueArr)
 					->execute();
@@ -205,10 +98,108 @@ class CDB
 	}
 	
 	
+	# ä¸€ï¼šå¸¸è§æ“ä½œ-æ•°æ®è¡¨æŸ¥è¯¢
+	/*
+	@å•ä¸€æŸ¥è¯¢ï¼Œè¿”å›žæ˜¯ä¸€ä¸ªå¯¹è±¡ï¼Œå¯é€šè¿‡æ•°ç»„çš„å½¢å¼è°ƒç”¨ $customer['quote_id'];
+		è¿˜å¯ä»¥é€šè¿‡å±žæ€§çš„æ–¹å¼ $customer->quote_id;
+		$customer = Customer::findOne(['customer_id' => (int)$customer_id]);
+	
+	@å…¨éƒ¨æŸ¥è¯¢ï¼šè¿”å›žçš„æ˜¯å¯¹è±¡
+		$customers = Customer::find()
+			->where(['status' => Customer::STATUS_ACTIVE])
+			->orderBy('id')
+			->all();
+	@å…¨éƒ¨æŸ¥è¯¢ï¼šè¿”å›žçš„æ˜¯æ•°ç»„  (æŸ¥è¯¢100-109è¡Œ)
+		$customers = Customer::find()
+			->asArray()
+			->where(['status' => Customer::STATUS_ACTIVE])
+			->orderBy(['id' => SORT_ASC,'name' => SORT_DESC])
+			->limit(10)
+			->offset(100)
+			->all();
+	@æŸ¥è¯¢ä¸ªæ•°ï¼š
+		$count = Customer::find()
+			->where(['status' => Customer::STATUS_ACTIVE])
+			->count();
+	@ä»¥idä¸ºç´¢å¼•çš„æ–¹å¼æŸ¥è¯¢
+		$customers = Customer::find()->indexBy('id')->all();
+		
+	@ç”¨åŽŸç”Ÿçš„sqlæŸ¥è¯¢ï¼šï¼ˆåªèƒ½é’ˆå¯¹è¿™ä¸€ä¸ªè¡¨ï¼‰
+		$sql = 'SELECT * FROM customer';
+		$customers = Customer::findBySql($sql)->all();	
+		
+	@æ‰¹é‡èŽ·å–æ•°æ®ï¼ˆä¸å¸¸ç”¨ï¼Œé’ˆå¯¹å¤§æ•°æ®ï¼‰
+		ä¸€æ¬¡æå– 10 ä¸ªå®¢æˆ·ä¿¡æ¯
+		foreach (Customer::find()->batch(10) as $customers) {
+			$customers æ˜¯ 10 ä¸ªæˆ–æ›´å°‘çš„å®¢æˆ·å¯¹è±¡çš„æ•°ç»„
+		}
+		ä¸€æ¬¡æå– 10 ä¸ªå®¢æˆ·å¹¶ä¸€ä¸ªä¸€ä¸ªåœ°éåŽ†å¤„ç†
+		foreach (Customer::find()->each(10) as $customer) {
+			$customer æ˜¯ä¸€ä¸ª â€Customerâ€œ å¯¹è±¡
+		}
+		è´ªå©ªåŠ è½½æ¨¡å¼çš„æ‰¹å¤„ç†æŸ¥è¯¢
+		foreach (Customer::find()->with('orders')->each() as $customer) {
+		}
+	*/
+	
+	
+	# å¸¸è§æ“ä½œ2:æ•°æ®è¡¨æ’å…¥
+	/*
+	@æ’å…¥æ–°å®¢æˆ·çš„è®°å½•
+		$customer = new Customer();
+		$customer->name = 'James';
+		$customer->email = 'james@example.com';
+		//ç­‰åŒäºŽ $customer->insert();
+		$customer->save();  
+	
+	@é€šè¿‡postæ•°ç»„çš„æ–¹å¼èµ‹å€¼
+		$model = new Customer;
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+		
+		}
+		####ç”±äºŽARç»§æ‰¿è‡ªyii\base\Modelï¼Œæ‰€ä»¥å®ƒåŒæ ·ä¹Ÿæ”¯æŒModelçš„æ•°æ®è¾“å…¥ã€éªŒè¯ç­‰ç‰¹æ€§ã€‚ä¾‹å¦‚ï¼Œä½ å¯ä»¥å£°æ˜Žä¸€ä¸ªrulesæ–¹æ³•ç”¨æ¥è¦†ç›–æŽ‰yii\base\Model::rules()é‡Œçš„ï¼›ä½ ä¹Ÿå¯ä»¥ç»™ARå®žä¾‹æ‰¹é‡èµ‹å€¼ï¼›ä½ ä¹Ÿå¯ä»¥é€šè¿‡è°ƒç”¨yii\base\Model::validate()æ‰§è¡Œæ•°æ®éªŒè¯ã€‚
+		####å½“ä½ è°ƒç”¨ save()ã€insert()ã€update() è¿™ä¸‰ä¸ªæ–¹æ³•æ—¶ï¼Œä¼šè‡ªåŠ¨è°ƒç”¨yii\base\Model::validate()æ–¹æ³•ã€‚å¦‚æžœéªŒè¯å¤±è´¥ï¼Œæ•°æ®å°†ä¸ä¼šä¿å­˜è¿›æ•°æ®åº“ã€‚
+	
+	*/
+	
+	# å¸¸è§æ“ä½œ3:æ•°æ®è¡¨æ›´æ–°
+	/*
+	@æ›´æ–°çŽ°æœ‰å®¢æˆ·è®°å½•
+		$customer = Customer::findOne(['id' => 1]);
+		$customer->email = 'james@example.com';
+		//ç­‰åŒäºŽ $customer->update();
+		$customer->save();  
+		
+	@æ‰€æœ‰å®¢æˆ·çš„ageï¼ˆå¹´é¾„ï¼‰å­—æ®µåŠ 1ï¼š
+		Customer::updateAllCounters(['age' => 1]);		
+	*/
+	
+	
+	# å¸¸è§æ“ä½œ4ï¼šæ•°æ®è¡¨æ•°æ®åˆ é™¤
+	/*
+	@åˆ é™¤å·²æœ‰å®¢æˆ·è®°å½•
+		$customer = Customer::findOne(['id' => 1]);
+		$customer->delete();
+
+	@åˆ é™¤å¤šä¸ªå¹´é¾„å¤§äºŽ20ï¼Œæ€§åˆ«ä¸ºç”·ï¼ˆMaleï¼‰çš„å®¢æˆ·è®°å½•
+		Customer::deleteAll('age > :age AND gender = :gender', [':age' => 20, ':gender' => 'M']);
+			
+			
+	*/
+	
+	# å¸¸è§æ“ä½œ5ï¼šè¯»å–é»˜è®¤å€¼
+	/*
+	
+		ä½ çš„è¡¨åˆ—ä¹Ÿè®¸å®šä¹‰äº†é»˜è®¤å€¼ã€‚æœ‰æ—¶å€™ï¼Œä½ å¯èƒ½éœ€è¦åœ¨ä½¿ç”¨webè¡¨å•çš„æ—¶å€™ç»™ARé¢„è®¾ä¸€äº›å€¼ã€‚
+		å¦‚æžœä½ éœ€è¦è¿™æ ·åšï¼Œå¯ä»¥åœ¨æ˜¾ç¤ºè¡¨å•å†…å®¹å‰é€šè¿‡è°ƒç”¨
+		loadDefaultValues()æ–¹æ³•æ¥å®žçŽ°ï¼š 
+		php $customer = new Customer();
+		$customer->loadDefaultValues(); // ... æ¸²æŸ“ $customer çš„ HTML è¡¨å• ... `
+	*/
 	
 	/*
-	ÊÂÎñ²Ù×÷
-		# ¿ªÊ¼ÊÂÎñ
+	 å¸¸è§æ“ä½œ6ï¼šäº‹åŠ¡æ“ä½œ
+		# å¼€å§‹äº‹åŠ¡
 		$innerTransaction = Yii::$app->db->beginTransaction();
 		try {
 			$innerTransaction->commit();
@@ -218,35 +209,17 @@ class CDB
 	
 	*/
 	
-	
+	 
 	/*
-	ÊÂÎñÇ¶Ì×£º
-	$outerTransaction = $db->beginTransaction();
-	try {
-		$db->createCommand($sql1)->execute();
-
-		$innerTransaction = $db->beginTransaction();
-		try {
-			$db->createCommand($sql2)->execute();
-			$innerTransaction->commit();
-		} catch (Exception $e) {
-			$innerTransaction->rollBack();
-		}
-
-		$outerTransaction->commit();
-	} catch (Exception $e) {
-		$outerTransaction->rollBack();
-	}
-	
-	
+	å„ç§æ¡ä»¶æŸ¥è¯¢ã€‚ 
 	# where
-    where('status=1')->  
-    where('status=:status', [':status' => $status])->  
+    where('status=1') 
+    where('status=:status', [':status' => $status])
     where([  
         'status' => 10,  
         'type' => null,  
         'id' => [4, 8, 15],  
-    ])->  
+    ]) 
     -------  
     $userQuery = (new Query())->select('id')->from('user');  
     // ...WHERE `id` IN (SELECT `id` FROM `user`)  
@@ -264,7 +237,7 @@ class CDB
     ['exists','id', $userQuery] //EXISTS (sub-query) | not exists  
     ['>', 'age', 10] //age>10  
 	
-	µÃµ½¸Õ²åÈëµÄid
+	å¾—åˆ°åˆšæ’å…¥çš„id
 	order_id = Yii::$app->db->getLastInsertID();
 	
 	$sql = 'SELECT * FROM  sales_flat_quote';

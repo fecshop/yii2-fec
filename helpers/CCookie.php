@@ -7,17 +7,17 @@ class CCookie
 		return Yii::$app->request->cookies;
 	}
 	
-	# ÊÇ·ñ´æÔÚÄ³¸öcookie
+	# 1.æ˜¯å¦å­˜åœ¨æŸä¸ªcookie
 	public static function hasCookie($key){
 		return self::getCookieM()->has($key);
 	}
 	
-	# µÃµ½Ä³¸öcookieµÄÖµ
+	# 2.å¾—åˆ°æŸä¸ªcookieçš„å€¼
 	public static function getCookie($key,$default=''){
 		return self::getCookieM()->getValue($key,$default);
 	}
 	
-	# ÉèÖÃcookie
+	# 3.è®¾ç½®cookie
 	public static function setCookie($key,$val){
 		self::getCookieM()->add(new \yii\web\Cookie([
 			'name'  => $key,
@@ -25,7 +25,7 @@ class CCookie
 		]));
 	}
 	
-	#É¾³ýcookie
+	# 4.åˆ é™¤cookie
 	public static function removeCookie($key){
 		return self::getCookieM()->remove($key);
 	}

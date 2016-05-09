@@ -9,7 +9,7 @@ use Yii;
 # \fec\helpers\CModule::param();
 class CModule //extends CModule
 {
-	# 得到模块内部的配置
+	# 1.得到模块内部的配置，模块的配置在模块的etc/config.php内
 	public static function param($param,$moduleName=''){
 		if($moduleName){
 			//echo $moduleName;exit;

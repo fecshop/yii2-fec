@@ -1,12 +1,9 @@
 <?php
 namespace fec\helpers;
 use Yii; 
-//use yii\base\Model;
-//use backend\models\helper\Base.php
-# myapp\fec\helper\CConfig::getTheme();
 class CUser
 {
-	# ÊÇ·ñµÇÂ¼
+	# 1.æ£€æµ‹ç”¨æˆ·æ˜¯å¦ç™»å½•
 	public static function isLogin(){
 		if($identity = Yii::$app->user->identity){
 			return true;
@@ -14,7 +11,7 @@ class CUser
 		return false;
 	}
 	
-	# µÃµ½µ±Ç°µÄÓÃ»§Ãû
+	# 2.å¾—åˆ°å½“å‰çš„ç”¨æˆ·å
 	public static function getCurrentUsername(){
 		if($identity = Yii::$app->user->identity){
 			if(isset($identity['username']) && !empty($identity['username'])){
@@ -24,11 +21,11 @@ class CUser
 		return '';
 	}
 	
-	# ÅĞ¶ÏÊÇ·ñÊÇ³¬¼¶ÓÃ»§
+	# 3.åˆ¤æ–­æ˜¯å¦æ˜¯è¶…çº§ç”¨æˆ·ï¼Œéœ€è¦é…ç½®é¡¹ï¼šsuper_admin_user
 	public static function isSuperUser($user = ''){
 		$superUser = self::getSuperUserConfig();
 		if(!$user){
-			$user = self::getCurrentUsername;
+			$user = self::getCurrentUsername();
 		}
 		if($user && in_array($user,$superUser)){
 			return true;
@@ -36,7 +33,7 @@ class CUser
 		return false;
 	}
 	
-	# µÃµ½ÓÃ»§µÄÅäÖÃ¡£
+	# 4.å¾—åˆ°ç”¨æˆ·çš„é…ç½®ã€‚
 	public static function getSuperUserConfig(){
 		$superUser = ['admin'];
 		$configSuperUser = CConfig::param('super_admin_user');

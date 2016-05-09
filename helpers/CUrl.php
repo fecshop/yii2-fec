@@ -1,24 +1,20 @@
 <?php
 namespace fec\helpers;
 use Yii; 
-//use yii\base\Model;
-//use backend\models\helper\Base.php
-# myapp\fec\helper\CConfig::getTheme();
 class CUrl
 {
 	
-	
-	# »ñÈ¡Ê×Ò³µØÖ·¡£
+	# 1.è·å–é¦–é¡µåœ°å€ã€‚
 	public static function getHomeUrl(){
 		return Yii::$app->getHomeUrl();
 		//return Yii::$app->getBaseUrl(true);
 	}
-	
+	# 2. è·å–é¦–é¡µåœ°å€ã€‚åŒä¸Š
 	public static function getBaseUrl(){
 		return self::getHomeUrl();
 	}
 	
-	# Á¢¼´Ìø×ª  ºÍ yii2µÄÌø×ª»¹ÊÇ²»Í¬
+	# 3.ç«‹å³è·³è½¬  å’Œ yii2çš„è·³è½¬è¿˜æ˜¯ä¸åŒ
 	public static function redirect($url){
 		if($url){
 			if(substr($url,0,7) != "http://"){
@@ -29,7 +25,8 @@ class CUrl
 		}
 	}
 	
-	# Ä¬ÈÏÊÇ domain.com/skin/theme/ÏÂÃæµÄ¾ø¶ÔURL
+	# 4.é€šè¿‡æ¨¡æ¿nameï¼Œå¾—åˆ°å¯¹åº”æ–‡ä»¶è·¯å¾„ã€‚
+	# é»˜è®¤æ˜¯ domain.com/skin/theme/ä¸‹é¢çš„ç»å¯¹URL
 	public static function getSkinUrl($dir = '',$relative_path=false){
 		$currentTheme = CConfig::getCurrentTheme();
 		$url = '';
@@ -41,6 +38,7 @@ class CUrl
 				.$dir;
 	}
 	
+	#5. é€šè¿‡url path å’Œå‚æ•°  å¾—åˆ°å½“å‰ç½‘ç«™ä¸‹çš„å®Œæ•´urlè·¯å¾„ã€‚
 	public static function getUrl($url_path,$params=array()){
 		$url_path = trim($url_path,DIRECTORY_SEPARATOR);
 		$url =  self::getBaseUrl(). DIRECTORY_SEPARATOR .$url_path;
@@ -55,13 +53,13 @@ class CUrl
 		return $url.$str;
 	} 
 	
-	# µÃµ½µ±Ç°µÄÍêÕûurl
+	# 6.å¾—åˆ°å½“å‰çš„å®Œæ•´url
 	public static function getCurrentUrl(){
 		$s =  self::getHomeUrl();
 		return $s.$_SERVER["REQUEST_URI"];
 	
 	}
-	# µÃµ½µ±Ç°µÄÍêÕûurl  no param
+	# 7.å¾—åˆ°å½“å‰çš„å®Œæ•´url  no param
 	public static function getCurrentUrlNoParam(){
 		$url = self::getCurrentUrl();
 		if(strstr($url,"#")){
@@ -75,13 +73,13 @@ class CUrl
 		
 	}
 	
-	# µÃµ½url key   £¬Æ©Èç  http://www.x.com/ss/dd/aa?aaaa=ddddd   ·µ»Ø /ss/dd/aa
+	# 8ã€å¾—åˆ°url key   ï¼Œè­¬å¦‚  http://www.x.com/ss/dd/aa?aaaa=ddddd   è¿”å› /ss/dd/aa
 	public static function getUrlKey(){
 		
 		return Yii::$app->request->getPathInfo();
 	}
-	# µÃµ½url    £¬Æ©Èç  http://www.x.com/ss/dd/aa?aaaa=ddddd   ·µ»Ø /ss/dd/aa?aaaa=ddddd   
-	public static function getUrlWithParam(){
+	# 9.å¾—åˆ°url    ï¼Œè­¬å¦‚  http://www.x.com/ss/dd/aa?aaaa=ddddd   è¿”å› /ss/dd/aa?aaaa=ddddd   
+	public static function getUrlKeyWithParam(){
 		return Yii::$app->getRequest()->url;
 	}
 	

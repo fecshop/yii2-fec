@@ -3,7 +3,7 @@ namespace fec\helpers;
 use Yii; 
 class CExcel 
 {
-	# 加载phpExcel组件文件
+	# 1.加载phpExcel组件文件
 	public static function prepare(){
 		require_once(__DIR__."/../lib/PHPExcel/PHPExcel.php");
 		require_once(__DIR__."/../lib/PHPExcel/PHPExcel/IOFactory.php");
@@ -11,7 +11,7 @@ class CExcel
 		
 	}
 	
-	# 得到excel文件的内容
+	# 2.得到excel文件的内容
 	public static function getExcelContent($xlsDir){
 		self::prepare();
 		//echo $xlsDir;exit;
@@ -22,7 +22,7 @@ class CExcel
 	}
 	
 	
-	# array中的数据，以excel的方式下载下来。
+	# 3.array中的数据，以excel的方式下载下来。
 	# $data 是数据数组
 	# $fileName 是文件名字
 	/*

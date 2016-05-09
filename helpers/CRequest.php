@@ -1,18 +1,13 @@
 <?php
-/*
-´æ·ÅÒ»Ð©»ù±¾µÄ·ÇÊý¾Ý¿âÊý¾Ý¡£
-Ò»°ã¶¼ÊÇÊý×éÉèÖÃ¡£
-
-*/
 namespace fec\helpers;
 use Yii; 
 
 class CRequest 
 {
-	//const session;
 	public static function getRequest(){
 		return Yii::$app->request;
 	}
+	# 1.å¾—åˆ°postè¯·æ±‚ç±»åž‹çš„æ•°æ®
 	public static function post($key = ""){
 		
 		if($key){
@@ -20,37 +15,31 @@ class CRequest
 		}else{
 			$v = self::getRequest()->post();
 		}
-		if($key == "_id"){
-			$v = (int)$v;
-		}
 		return $v;
 	}
-	
+	# 2.è®¾ç½®
 	public static function set($key,$val){
-		
-		self::getRequest()->set($key,$val);
-		
+		return self::getRequest()->set($key,$val);
 	}
-	
+	# 3.å¾—åˆ°getè¯·æ±‚ç±»åž‹çš„æ•°æ®
 	public static function get($key = ""){
 		if($key){
 			$v = self::getRequest()->get($key);
 		}else{
 			$v = self::getRequest()->get();
 		}
-		if($key == "_id"){
-			$v = (int)$v;
-		}
 		return $v;
 	}
+	# 4.å¾—åˆ°get å’Œ postçš„æ‰€æœ‰æ•°æ®ã€‚ 
+	# å¦‚æžœä¸€ä¸ªå€¼åœ¨getå’Œpostä¸­éƒ½å­˜åœ¨ï¼Œåˆ™postä¼˜å…ˆã€‚
 	public static function param($key = ''){
 		if($key){
 			$get = self::get();
 			$post = self::post();
-			if($get[$key]){
-				return $get[$key] ;
-			}else if($post[$key]){
+			if($post[$key]){
 				return $post[$key] ;
+			}else if($get[$key]){
+				return $get[$key] ;
 			}else{
 				return "";
 			}
@@ -60,25 +49,22 @@ class CRequest
 			return array_merge($get,$post);
 		}
 	}
+	# 5.å¾—åˆ°csrfName
 	public static function getCsrfName(){
 		return self::getRequest()->csrfParam;
 	}
-	
+	# 6.å¾—åˆ°csrfå¯¹åº”çš„å€¼ã€‚
 	public static function getCsrfValue(){
 		return self::getRequest()->getCsrfToken(); 
 	}
-	//µÃµ½csrfµÄinput µÄ html
+	# 7.å¾—åˆ°csrfçš„input çš„ html
 	public static function getCsrfInputHtml(){
-		echo '<input class="thiscsrf" type="hidden" value="'.self::getRequest()->getCsrfToken().'" name="'.self::getRequest()->csrfParam.'" />';
+		echo '<input class="thiscsrf" type="hidden" value="'.self::getCsrfValue().'" name="'.self::getCsrfName().'" />';
 	}
-        
-        //µÃµ½csrfµÄinput µÄ html
-	public static function returnCsrfInputHtml(){
-		return '<input class="thiscsrf" type="hidden" value="'.self::getRequest()->getCsrfToken().'" name="'.self::getRequest()->csrfParam.'" />';
-	}
-	
+    
+	# 8.å¾—åˆ°csrfå¯¹åº”çš„å­—ç¬¦ä¸²
 	public static function getCsrfString(){
-		return self::getRequest()->csrfParam."=".self::getRequest()->getCsrfToken();
+		return self::getCsrfName()."=".self::getCsrfValue();
 	}
 	
 }

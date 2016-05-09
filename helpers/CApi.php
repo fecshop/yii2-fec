@@ -3,16 +3,17 @@ namespace fec\helpers;
 use Yii;
 class CApi{
 	
-	
+	# 1.é€šè¿‡å‡½æ•°è®¿é—®apiï¼Œè·å–æ•°æ®
+	#  JSONæ ¼å¼
 	/*
-		²ÎÊıËµÃ÷£º  $url  ÎªAPI·ÃÎÊµÄurl
-					$type ÎªÇëÇóÀàĞÍ£¬Ä¬ÈÏÎªget
-					$data Îª´«µİµÄÊı×éÊı¾İ
-					$timeout ÉèÖÃ³¬Ê±Ê±¼ä
-		·µ»ØÖµ£º	·µ»ØAPI·µ»ØµÄÊı¾İ
+		å‚æ•°è¯´æ˜ï¼š  $url  ä¸ºAPIè®¿é—®çš„url
+					$type ä¸ºè¯·æ±‚ç±»å‹ï¼Œé»˜è®¤ä¸ºget
+					$data ä¸ºä¼ é€’çš„æ•°ç»„æ•°æ®
+					$timeout è®¾ç½®è¶…æ—¶æ—¶é—´
+		è¿”å›å€¼ï¼š	è¿”å›APIè¿”å›çš„æ•°æ®
 	*/
 	public static function getCurlData($url,$type="get",$data=array(),$timeout = 10){
-            //¶Ô¿Õ¸ñ½øĞĞ×ªÒå
+            //å¯¹ç©ºæ ¼è¿›è¡Œè½¬ä¹‰
             $url = str_replace(' ','+',$url);
 			if($type == "get"){
 				if(!empty($data) && is_array($data)){
@@ -34,13 +35,13 @@ class CApi{
 			$url = urldecode($url);
 			//echo $url ;exit;
             $ch = curl_init();
-            //ÉèÖÃÑ¡Ïî£¬°üÀ¨URL
+            //è®¾ç½®é€‰é¡¹ï¼ŒåŒ…æ‹¬URL
             curl_setopt($ch, CURLOPT_URL, "$url");
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch,CURLOPT_TIMEOUT,$timeout);  //¶¨Òå³¬Ê±3ÃëÖÓ  
+            curl_setopt($ch,CURLOPT_TIMEOUT,$timeout);  //å®šä¹‰è¶…æ—¶3ç§’é’Ÿ  
             if($type == "post"){
-				// POSTÊı¾İ
+				// POSTæ•°æ®
 				curl_setopt($ch, CURLOPT_POST, 1);
 				curl_setopt($ch, 
 					CURLOPT_HTTPHEADER, 
@@ -51,13 +52,13 @@ class CApi{
 					]
 					);
 
-				// °ÑpostµÄ±äÁ¿¼ÓÉÏ
+				// æŠŠpostçš„å˜é‡åŠ ä¸Š
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
             }
-			//Ö´ĞĞ²¢»ñÈ¡urlµØÖ·µÄÄÚÈİ
+			//æ‰§è¡Œå¹¶è·å–urlåœ°å€çš„å†…å®¹
             $output = curl_exec($ch);
             //echo $output ;
-            //ÊÍ·Åcurl¾ä±ú
+            //é‡Šæ”¾curlå¥æŸ„
             curl_close($ch);
 			//var_dump($output);exit;
             return $output;

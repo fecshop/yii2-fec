@@ -1,26 +1,26 @@
 <?php
 namespace fec\helpers;
 use Yii; 
-# ±¾¹¦ÄÜÊ¹ÓÃÇ°£¬ÐèÒªÅäÖÃlog
-#  ²Î¿´µØÖ·£ºhttp://blog.csdn.net/terry_water/article/details/51250478
-# Ã»ÓÐÅäÖÃÇ°£¬±¾¹¦ÄÜ²»ÄÜÊ¹ÓÃ¡£
+# æœ¬åŠŸèƒ½ä½¿ç”¨å‰ï¼Œéœ€è¦é…ç½®log
+#  å‚çœ‹åœ°å€ï¼šhttp://blog.csdn.net/terry_water/article/details/51250478
+# æ²¡æœ‰é…ç½®å‰ï¼Œæœ¬åŠŸèƒ½ä¸èƒ½ä½¿ç”¨ã€‚
 class CLog
 {
-	# common\config\main.php
-	# Êý¾Ý¿âLog £¬Êä³ö±íÎª£ºsystem_log
+	# 1.æ•°æ®åº“Log ï¼Œå°†é”™è¯¯ä¿¡æ¯è¾“å‡ºåˆ°è¡¨ï¼šsystem_log
+	# 	common\config\main.php
 	public static function dbinfo($info,$categories = 'db_mysql'){
 		$info = self::getInfo($info));
 		if($info && $categories)
 			\Yii::info($info,$categories);  
 	}
-	# ÎÄ¼þLog
-	# Êä³öµØÖ·Îª£º@app/runtime/logs/file_log.log
+	# 2.æ–‡ä»¶Logï¼Œè¯¦ç»†çš„è¾“å‡ºè·¯å¾„å‚çœ‹é…ç½®ã€‚
+	# ç›®å‰çš„è¾“å‡ºåœ°å€ä¸ºï¼š@app/runtime/logs/file_log.log
 	public static function fileinfo($info,$categories = 'file_log'){
 		$info = self::getInfo($info));
 		if($info && $categories)
 			\Yii::info($info,$categories); 
 	}
-	
+	# 3.ä¿¡æ¯çš„è½¬æ¢ï¼Œå°†objectï¼Œarray è½¬æ¢æˆå­—ç¬¦ä¸²ï¼Œä»¥ä¾›è¾“å‡ºã€‚ 
 	public static function getInfo($info){
 		if(!$info)
 			return false;
