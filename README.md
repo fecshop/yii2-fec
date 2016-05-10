@@ -11,6 +11,8 @@ github: https://github.com/fancyecommerce/yii2-fec
 
 > 更详细的配置说明文档正在编写中...
 
+> 更加详细的说明地址：http://www.fancyecommerce.com/category/yii2-%E6%8F%92%E4%BB%B6%E6%89%A9%E5%B1%95/
+
 > QQ: 2358269014
 
 > 有任何疑问可以发邮件到 2358269014@qq.com
