@@ -24,6 +24,7 @@
     	"php": ">=5.4.0",
     	"yiisoft/yii2": ">=2.0.6",
    	"imagine/imagine": "0.5.*",
+	"yiisoft/yii2-redis": "~2.0.0",
 	"phpoffice/phpexcel": "1.8.*"
   },
   "autoload": {
