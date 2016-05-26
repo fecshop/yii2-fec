@@ -50,25 +50,6 @@ composer install
       ],
 ```
 
-yii2 使用redis queue
-
-在fec插件中已经实现queue
-
-fec插件：https://github.com/fancyecommerce/yii2-fec
-
-在使用之前，您需要先进行配置如下：
-```php
-    'components' => [
-          'queue' => [
-              'class' => 'fec\component\RedisQueue',
-          ],
-      ],
-      
-      'controllerMap' => [
-          'queue' => 'fec\component\redisqueue\QueueController'
-      ],
-```
-
 详细的使用方法参看\fec\helper\CRedisQueue
 
 
