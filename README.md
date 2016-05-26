@@ -4,27 +4,14 @@ Yii2 Fancy Ecommerce  (FEC)
 
 github: https://github.com/fancyecommerce/yii2-fec
 
-[![Latest Stable Version](https://poser.pugx.org/myweishanli/yii2-extjs-rbac/v/stable.png)](https://github.com/fancyecommerce/yii2-fec)
-[![Total Downloads](https://poser.pugx.org/myweishanli/yii2-extjs-rbac/downloads.png)](https://github.com/fancyecommerce/yii2-fec)
+[![Latest Stable Version](https://poser.pugx.org/fancyecommerce/fec/v/stable)](https://packagist.org/packages/fancyecommerce/fec) [![Total Downloads](https://poser.pugx.org/fancyecommerce/fec/downloads)](https://packagist.org/packages/fancyecommerce/fec) [![Latest Unstable Version](https://poser.pugx.org/fancyecommerce/fec/v/unstable)](https://packagist.org/packages/fancyecommerce/fec) [![License](https://poser.pugx.org/fancyecommerce/fec/license)](https://packagist.org/packages/fancyecommerce/fec)
 
-> 注: 功能正在开发中...
-
-> 更详细的配置说明文档正在编写中...
 
 > 更加详细的说明地址：http://www.fancyecommerce.com/category/yii2-%E6%8F%92%E4%BB%B6%E6%89%A9%E5%B1%95/
 
 > QQ: 2358269014
 
 > 有任何疑问可以发邮件到 2358269014@qq.com
-
----
-有任何建议或者需求欢迎来反馈 [issues](../../issues)
-
-欢迎点击右上方的 star 收藏
-
-fork 参与开发，欢迎提交 Pull Requests，然后 Pull Request
-
----
 
 1、安装
 ------------
@@ -46,65 +33,47 @@ composer install
 2、使用
 ------------
 
+2.1 fec\helpers\xxxx ， 里面是一些常用的帮助类。
+详细可以打开fec\helpers文件夹查看。
 
-调用
+2.2 Redis Queue 队列的使用
+在使用之前，您需要先进行配置如下：
 ```php
-<?php
-use fec\helpers\CUrl;
-use fec\helpers\CProfile;
-class Menu{
-	public static function getMenuData(){
-		$obj_data = ["DMenu","Info",'getMenu',true];
-		$men_arr = CProfile::getInstance()->fetch($obj_data);
-		return $men_arr;
-	}
+    'components' => [
+          'queue' => [
+              'class' => 'fec\component\RedisQueue',
+          ],
+      ],
+      
+      'controllerMap' => [
+          'queue' => 'fec\component\redisqueue\QueueController'
+      ],
 ```
 
-配置：
+yii2 使用redis queue
+
+在fec插件中已经实现queue
+
+fec插件：https://github.com/fancyecommerce/yii2-fec
+
+在使用之前，您需要先进行配置如下：
 ```php
-<?php
-public function getModulesConfig(){
-		return [
-			
-			'DMenu' => [
-							'moduleDir' =>'\appdata\code\Blog\DMenu',
-							'apiurl'  =>'http://120.24.37.249:100/dmenu',
-							'token'  =>'xxxxxx',
-						],	
-		];
-		
-	}
+    'components' => [
+          'queue' => [
+              'class' => 'fec\component\RedisQueue',
+          ],
+      ],
+      
+      'controllerMap' => [
+          'queue' => 'fec\component\redisqueue\QueueController'
+      ],
 ```
 
-数据来源：
-```php
-<?php
-namespace appdata\code\Blog\DMenu\o;
-use Yii;
-class Info
-{
-	public static function getMenu($current_menu=''){
-		$menuArr = self::getMenuArr();
-		return json_encode($menuArr );
-	}
+详细的使用方法参看\fec\helper\CRedisQueue
 
-```
-远程：
-```php
-<?php
-namespace appdata\code\Blog\DMenu\controllers;
 
-use Yii;
-use fec\controllers\ModulesapiController;
-use fec\helpers\CUrl;
-class InfoController extends ModulesapiController
-{
-  
-	public $_name_space = __NAMESPACE__;
-	
-	
-	
-}
-```
+
+
+
 
 
