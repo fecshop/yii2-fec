@@ -31,11 +31,12 @@ class CView
 	*/
     public static function getChildHtml($config)
     {
-		if(!isset($config['class']) || empty($config['class'])
-		|| !isset($config['view']) || empty($config['view'])
+		if( !isset($config['view']) || empty($config['view'])
 		){
 			throw new InvalidConfigException('view and class must exist in array config!');
 		}
+		if( !isset($config['class']) || empty($config['class']))
+			return Yii::$app->view->render($config['view'], []);
 		$method = self::DATA_METHOD;
 		if(isset($config['method']) && !empty($config['method'])){
 			$method = $config['method'];
@@ -89,8 +90,7 @@ class CView
 			}
 		}
 		
-		if(!isset($config['class']) || empty($config['class'])
-		|| !isset($config['view']) || empty($config['view'])
+		if(!isset($config['view']) || empty($config['view'])
 		){
 			throw new InvalidConfigException('view and class must exist in array config!');
 		}else{

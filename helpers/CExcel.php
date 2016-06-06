@@ -3,17 +3,17 @@ namespace fec\helpers;
 use Yii; 
 class CExcel 
 {
-	//# 1.加载phpExcel组件文件
-	//public static function prepare(){
-	//	require_once(__DIR__."/../lib/PHPExcel/PHPExcel.php");
-	//	require_once(__DIR__."/../lib/PHPExcel/PHPExcel/IOFactory.php");
-	//	require_once(__DIR__."/../lib/PHPExcel/PHPExcel/Reader/Excel5.php");
-	//	
-	//}
+	# 1.加载phpExcel组件文件
+	public static function prepare(){
+		require_once(__DIR__."/../lib/PHPExcel/PHPExcel.php");
+		require_once(__DIR__."/../lib/PHPExcel/PHPExcel/IOFactory.php");
+		require_once(__DIR__."/../lib/PHPExcel/PHPExcel/Reader/Excel5.php");
+		
+	}
 	
 	# 2.得到excel文件的内容
 	public static function getExcelContent($xlsDir){
-	//	self::prepare();
+		self::prepare();
 		//echo $xlsDir;exit;
 		$objPHPExcel = \PHPExcel_IOFactory::load($xlsDir);
 		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
@@ -37,7 +37,7 @@ class CExcel
 		
 	
 	public static function downloadExcelFileByArray($data,$fileName=''){
-	//	self::prepare();
+		self::prepare();
 		if(!$fileName){
 			$fileName = 'xls-download-'.date('Y-m-d-H-i-s').'.xls';
 		}

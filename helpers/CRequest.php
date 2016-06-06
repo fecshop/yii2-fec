@@ -36,9 +36,9 @@ class CRequest
 		if($key){
 			$get = self::get();
 			$post = self::post();
-			if($post[$key]){
+			if(isset($post[$key])){
 				return $post[$key] ;
-			}else if($get[$key]){
+			}else if(isset($get[$key])){
 				return $get[$key] ;
 			}else{
 				return "";

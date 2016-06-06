@@ -92,4 +92,10 @@ class CFunc
 		return ($ip ? $ip : $_SERVER['REMOTE_ADDR']);
 	}
 	
+	# 得到4位小数点
+	public function getFormatFloat($data,$decimal=4){
+		return round($data,$decimal);
+		
+	}
+	
 }

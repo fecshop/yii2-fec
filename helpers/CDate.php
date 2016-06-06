@@ -27,6 +27,17 @@ class CDate
 		}
     }
 	
+	
+	public static function getWeekOneDate($date){
+		$week = date('w',strtotime($date));
+		//echo $date;
+		//echo $week;
+		
+		$c = $week - 1;
+		return date("Y-m-d",strtotime($date." -$c days " ));
+		
+	}
+	
 	# 4.通过date，得到年-周。
 	public static function getYearAndWeek($date){
 		//$date = strtotime($date);
@@ -39,6 +50,15 @@ class CDate
 			$week = "00";
 		}
 		return $year."-".$week;
+	}
+	
+	# 得到间隔天数
+	public static function diffBetweenTwoDays($day1, $day2)
+	{
+		$second1 = strtotime($day1);
+		$second2 = strtotime($day2);
+    
+		return abs($second1 - $second2) / 86400;
 	}
 
 }
