@@ -3,22 +3,33 @@ namespace fec\helpers;
 use Yii; 
 class CUrl
 {
-	
+	public static $_baseHttpUrl;
+	public static $_baseHttpsUrl;
 	# 1.获取首页地址。
 	public static function getHomeUrl(){
 		return Yii::$app->getHomeUrl();
 		//return Yii::$app->getBaseUrl(true);
 	}
 	# 2. 获取首页地址。同上
-	public static function getBaseUrl(){
-		return self::getHomeUrl();
+	public static function getBaseUrl($isHttps=false){
+		if($isHttps){
+			if(!self::$_baseHttpsUrl){
+				self::$_baseHttpsUrl = str_replace('http','https',self::getHomeUrl());
+			}
+			return self::$_baseHttpsUrl;
+		}else{
+			if(!self::$_baseHttpUrl){
+				self::$_baseHttpUrl = str_replace('https','http',self::getHomeUrl());
+			}
+			return self::$_baseHttpUrl;
+		}
 	}
 	
 	# 3.立即跳转  和 yii2的跳转还是不同
-	public static function redirect($url){
+	public static function redirect($url,$isHttps=false){
 		if($url){
-			if(substr($url,0,7) != "http://"){
-				$url = self::getUrl($url);	
+			if(substr($url,0,4) != "http"){
+				$url = self::getUrl($url,[],$isHttps);	
 			}
 			header("Location: $url");
 			exit;
@@ -39,9 +50,9 @@ class CUrl
 	}
 	
 	#5. 通过url path 和参数  得到当前网站下的完整url路径。
-	public static function getUrl($url_path,$params=array()){
+	public static function getUrl($url_path,$params=array(),$isHttps=false){
 		$url_path = trim($url_path,DIRECTORY_SEPARATOR);
-		$url =  self::getBaseUrl(). DIRECTORY_SEPARATOR .$url_path;
+		$url =  self::getBaseUrl($isHttps). DIRECTORY_SEPARATOR .$url_path;
 		$str = "";
 		if(!empty($params) && is_array($params)){
 			$str .= "?";
@@ -55,9 +66,9 @@ class CUrl
 	
 	# 6.得到当前的完整url
 	public static function getCurrentUrl(){
-		$s =  self::getHomeUrl();
-		return $s.$_SERVER["REQUEST_URI"];
-	
+		//$s =  self::getHomeUrl();
+		//return $s.$_SERVER["REQUEST_URI"];
+		return \yii\helpers\Url::current();
 	}
 	# 7.得到当前的完整url  no param
 	public static function getCurrentUrlNoParam(){

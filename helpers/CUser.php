@@ -21,6 +21,16 @@ class CUser
 		return '';
 	}
 	
+	# 3.得到当前用户的id
+	public static function getCurrentUserId(){
+		if($identity = Yii::$app->user->identity){
+			if(isset($identity['id']) && !empty($identity['id'])){
+				return $identity['id'];
+			}
+		}
+		return '';
+	}
+	
 	# 3.判断是否是超级用户，需要配置项：super_admin_user
 	public static function isSuperUser($user = ''){
 		$superUser = self::getSuperUserConfig();

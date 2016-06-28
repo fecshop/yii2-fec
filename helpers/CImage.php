@@ -51,6 +51,90 @@ class CImage
     public static $thumbnailBackgroundAlpha = 100;
     
 	
+	
+	
+	/**
+	 * @property $imgPath|String 原来图片的绝对路径
+	 * @property $newPath|String 压缩尺寸，并加入水印后的图片保存路径。
+	 * @property $resize|Array or String 图片压缩后的宽度，['width'=111,'height'=222];
+	 * @property $waterMark|String 水印图片的绝对路径
+	 * 生成新的带有水印的缩略图，水印图片默认放到中间位置。
+	 * newPath 要保证改路径存在并可写。如果水印图片比resize的尺寸大，则水印图片将不会被添加到生成的图片上面
+	 * $resizeWidth 和 $resizeHeight，允许其中一个设置为0，如果为0，
+	 * @return  
+	 */
+	
+	public static function saveResizeMiddleWaterImg($imgPath,$newPath,$resize,$waterMark=''){
+		
+		$image = static::getImagine()->open($imgPath);
+		$sourceBox 	= $image->getSize();
+		$imgWidth 	= $sourceBox->getWidth();
+		$imgHeight 	= $sourceBox->getHeight();
+		if(is_array($resize)){
+			$resizeWidth= $resize[0];
+			$resizeHeight= $resize[1];
+		}else{
+			$resizeWidth = $resizeHeight = $resize;
+		}
+		
+		if(!$resizeWidth && !$resizeHeight){
+			return false;
+		}
+		// 得到图片不失真情况下的缩放尺寸
+		$imgRate = $imgWidth/$imgHeight;
+		$resizeRate = $resizeWidth/$resizeHeight;
+		
+		if($imgRate >= $resizeRate){
+			$resizeImgWidth = $resizeWidth;
+			$resizeImgHeight = $resizeImgWidth * $imgHeight / $imgWidth;
+		}else{
+			$resizeImgHeight = $resizeHeight;
+			$resizeImgWidth = $resizeImgHeight * $imgWidth / $imgHeight;
+		}
+		
+		//得到背景图片
+		$imagine = static::getImagine();
+		//$palette = new \Imagine\Image\Palette\RGB();
+		$size  = new \Imagine\Image\Box($resizeWidth, $resizeHeight);
+		//$color = $palette->color($backgroundColor);
+		$gr_image = $imagine->create($size);
+		//$gr_image->save($newPath);
+		
+		
+		$image->resize(new Box($resizeImgWidth, $resizeImgHeight ));
+		// 和空白图片合并
+		$startX = ($resizeWidth - $resizeImgWidth)/2 ;
+		$startY = ($resizeHeight - $resizeImgHeight)/2 ;
+		$startX = ($startX > 0) ? $startX : 0;
+		$startY = ($startY > 0) ? $startY : 0;
+		$start = [$startX,$startY];
+		$gr_image->paste($image, new Point($start[0], $start[1]));
+		
+		
+		if($waterMark){
+			$waterImage = static::getImagine()->open($waterMark);
+			$waterSourceBox 		= $waterImage->getSize();
+			$watermarkWidth = $waterSourceBox->getWidth();
+			$watermarkHeight= $waterSourceBox->getHeight();
+			if(($resizeWidth >= $watermarkWidth)
+			&& ($resizeHeight >= $watermarkHeight)
+			){
+				
+				$startX = ($resizeWidth - $watermarkWidth)/2 ;
+				$startY = ($resizeHeight - $watermarkHeight)/2 ;
+				$startX = ($startX > 0) ? $startX : 0;
+				$startY = ($startY > 0) ? $startY : 0;
+				$start = [$startX,$startY];
+				$gr_image->paste($waterImage, new Point($start[0], $start[1]));
+			}
+		}
+		$gr_image->save($newPath);
+		
+	}
+	
+	
+	
+	
 	# 1.保存缩略图
 	# $oldImgFile ：原来的图片路径   web 目录下面加入@webroot
 	# $newImgFile : 新保存的图片路径
