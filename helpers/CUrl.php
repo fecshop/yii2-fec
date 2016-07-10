@@ -68,7 +68,8 @@ class CUrl
 	public static function getCurrentUrl(){
 		//$s =  self::getHomeUrl();
 		//return $s.$_SERVER["REQUEST_URI"];
-		return \yii\helpers\Url::current();
+		//return \yii\helpers\Url::current();
+		return Yii::$app->request->getAbsoluteUrl();
 	}
 	# 7.得到当前的完整url  no param
 	public static function getCurrentUrlNoParam(){
@@ -82,7 +83,7 @@ class CUrl
 		}
 		return $url;
 		
-	}
+	} 
 	
 	# 8、得到url key   ，譬如  http://www.x.com/ss/dd/aa?aaaa=ddddd   返回 /ss/dd/aa
 	public static function getUrlKey(){
