@@ -4,7 +4,7 @@ Yii2 Fancy Ecommerce  (FEC)
 
 github: https://github.com/fancyecommerce/yii2-fec
 
-[![Latest Stable Version](https://poser.pugx.org/fancyecommerce/fec/v/stable)](https://packagist.org/packages/fancyecommerce/fec) [![Total Downloads](https://poser.pugx.org/fancyecommerce/fec/downloads)](https://packagist.org/packages/fancyecommerce/fec) [![Latest Unstable Version](https://poser.pugx.org/fancyecommerce/fec/v/unstable)](https://packagist.org/packages/fancyecommerce/fec)
+[![Latest Stable Version](https://poser.pugx.org/fancyecommerce/fec/v/stable)](https://packagist.org/packages/fancyecommerce/fec) [![Total Downloads](https://poser.pugx.org/fancyecommerce/fec/downloads)](https://packagist.org/packages/fancyecommerce/fec) [![Latest Unstable Version](https://poser.pugx.org/fancyecommerce/fec/v/unstable)](https://packagist.org/packages/fancyecommerce/fec) [![License](https://poser.pugx.org/fancyecommerce/fec/license)](https://packagist.org/packages/fancyecommerce/fec)
 
 
 > 更加详细的说明地址：http://www.fancyecommerce.com/category/yii2-%E6%8F%92%E4%BB%B6%E6%89%A9%E5%B1%95/

@@ -9,7 +9,7 @@
   ],
   "homepage": "https://github.com/fancyecommerce/yii2-fec",
   "type": "yii2-extension",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "support": {
     "source": "https://github.com/fancyecommerce/yii2-fec"
   },

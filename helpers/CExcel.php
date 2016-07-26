@@ -43,7 +43,7 @@ class CExcel
 		}
 		$objPHPExcel = new \PHPExcel();
 		$objPHPExcel->getActiveSheet()->fromArray($data);
-		
+		$objPHPExcel->getActiveSheet()->freezePane('A2');
 		// Redirect output to a client’s web browser (Excel5)
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="'.$fileName.'"');
