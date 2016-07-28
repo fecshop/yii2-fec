@@ -6,7 +6,10 @@ class CConfig
 	
 	
 	public static function param($param){
-		return Yii::$app->params[$param];
+		if(isset(Yii::$app->params[$param])){
+			return Yii::$app->params[$param];
+		}
+		return ;
 	}
 	# 1.得到当前的配置模板
 	public static function getCurrentTheme(){
