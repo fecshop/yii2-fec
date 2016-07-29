@@ -1,2 +1,0 @@
-\cp -rf ./ /code/fancyecommerce/yii2_fec/
-
