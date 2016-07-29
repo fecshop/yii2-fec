@@ -1,10 +1,18 @@
 <?php
+/**
+ * FecShop file.
+ *
+ * @link http://www.fecshop.com/
+ * @copyright Copyright (c) 2016 FecShop Software LLC
+ * @license http://www.fecshop.com/license/
+ */
 namespace fec\controllers;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
 /**
- * fec 基层controller
+ * @author Terry Zhao <2358269014@qq.com>
+ * @since 1.0
  */
 class FecController extends Controller
 {

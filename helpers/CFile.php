@@ -1,11 +1,17 @@
 <?php
-/*
-一些常用数据的处理，类似于在php中添加函数一些，处理一些算术上面的数据
-
-*/
+/**
+ * FecShop file.
+ *
+ * @link http://www.fecshop.com/
+ * @copyright Copyright (c) 2016 FecShop Software LLC
+ * @license http://www.fecshop.com/license/
+ */
 namespace fec\helpers;
-
 use Yii; 
+/**
+ * @author Terry Zhao <2358269014@qq.com>
+ * @since 1.0
+ */
 class CFile 
 {
 	

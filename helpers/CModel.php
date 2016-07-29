@@ -1,11 +1,17 @@
 <?php
-/*
-存放一些基本的非数据库数据。
-一般都是数组设置。
-
-*/
+/**
+ * FecShop file.
+ *
+ * @link http://www.fecshop.com/
+ * @copyright Copyright (c) 2016 FecShop Software LLC
+ * @license http://www.fecshop.com/license/
+ */
 namespace fec\helpers;
 use Yii; 
+/**
+ * @author Terry Zhao <2358269014@qq.com>
+ * @since 1.0
+ */
 class CModel 
 {
 

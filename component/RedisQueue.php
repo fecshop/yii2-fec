@@ -1,10 +1,21 @@
 <?php
+/**
+ * FecShop file.
+ *
+ * @link http://www.fecshop.com/
+ * @copyright Copyright (c) 2016 FecShop Software LLC
+ * @license http://www.fecshop.com/license/
+ */
 namespace fec\component;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\redis\Connection;
 use fec\component\redisqueue\Queue;
 use fec\component\redisqueue\Job;
+/**
+ * @author Terry Zhao <2358269014@qq.com>
+ * @since 1.0
+ */
 class RedisQueue extends Queue
 {
 	

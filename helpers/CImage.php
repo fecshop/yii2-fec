@@ -1,7 +1,13 @@
 <?php
+/**
+ * FecShop file.
+ *
+ * @link http://www.fecshop.com/
+ * @copyright Copyright (c) 2016 FecShop Software LLC
+ * @license http://www.fecshop.com/license/
+ */
 namespace fec\helpers;
 use Yii; 
-
 use Imagine\Image\Box;
 use Imagine\Image\BoxInterface;
 use Imagine\Image\Color;
@@ -12,6 +18,10 @@ use Imagine\Image\Point;
 use yii\base\InvalidConfigException;
 use yii\base\InvalidParamException;
 use yii\helpers\ArrayHelper;
+/**
+ * @author Terry Zhao <2358269014@qq.com>
+ * @since 1.0
+ */
 class CImage
 {
 	/**

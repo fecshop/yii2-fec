@@ -1,9 +1,17 @@
 <?php
+/**
+ * FecShop file.
+ *
+ * @link http://www.fecshop.com/
+ * @copyright Copyright (c) 2016 FecShop Software LLC
+ * @license http://www.fecshop.com/license/
+ */
 namespace fec\helpers;
 use Yii; 
-//use yii\base\Model;
-//use backend\models\helper\Base.php
-# myapp\fec\helper\CConfig::getTheme();
+/**
+ * @author Terry Zhao <2358269014@qq.com>
+ * @since 1.0
+ */
 class CEmail
 {
 	public static function getMailer(){

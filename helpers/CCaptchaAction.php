@@ -1,11 +1,20 @@
 <?php
+/**
+ * FecShop file.
+ *
+ * @link http://www.fecshop.com/
+ * @copyright Copyright (c) 2016 FecShop Software LLC
+ * @license http://www.fecshop.com/license/
+ */
 namespace fec\helpers;
 use Yii; 
 use  yii\captcha\CaptchaAction;
+/**
+ * @author Terry Zhao <2358269014@qq.com>
+ * @since 1.0
+ */
 class CCaptchaAction extends CaptchaAction
 {
-	
-	//public $testLimit = 4;
 	public $minLength = 4;
 	public $maxLength = 4;
 	/**

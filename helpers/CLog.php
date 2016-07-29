@@ -1,9 +1,20 @@
 <?php
+/**
+ * FecShop file.
+ *
+ * @link http://www.fecshop.com/
+ * @copyright Copyright (c) 2016 FecShop Software LLC
+ * @license http://www.fecshop.com/license/
+ */
 namespace fec\helpers;
 use Yii; 
 # 本功能使用前，需要配置log
 #  参看地址：http://blog.csdn.net/terry_water/article/details/51250478
 # 没有配置前，本功能不能使用。
+/**
+ * @author Terry Zhao <2358269014@qq.com>
+ * @since 1.0
+ */
 class CLog
 {
 	# 1.数据库Log ，将错误信息输出到表：system_log

@@ -1,4 +1,11 @@
 <?php
+/**
+ * FecShop file.
+ *
+ * @link http://www.fecshop.com/
+ * @copyright Copyright (c) 2016 FecShop Software LLC
+ * @license http://www.fecshop.com/license/
+ */
 namespace fec\controllers;
 
 use Yii;
@@ -9,6 +16,10 @@ use yii\web\Controller;
 # 3.函数执行完毕，返回的是json格式的数据
 # 4.在返回数据之前，进行session的提交，保证修改的session提交到redis。
 ##################################################################################################################################
+/**
+ * @author Terry Zhao <2358269014@qq.com>
+ * @since 1.0
+ */
 class ModulesapiController extends Controller
 {
 	

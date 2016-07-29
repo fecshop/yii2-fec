@@ -1,4 +1,11 @@
 <?php
+/**
+ * FecShop file.
+ *
+ * @link http://www.fecshop.com/
+ * @copyright Copyright (c) 2016 FecShop Software LLC
+ * @license http://www.fecshop.com/license/
+ */
 namespace fec\helpers;
 use Yii; 
 ##########################################################################################################################################
@@ -19,6 +26,10 @@ use Yii;
 # 7.JSON格式转换成数组格式
 # 8. 注意：current_remote_function_param_array  不要在post 和get 中出现，这个参数被用来传递函数方法的参数。
 ##########################################################################################################################################
+/**
+ * @author Terry Zhao <2358269014@qq.com>
+ * @since 1.0
+ */
 class CProfile
 {
 	
