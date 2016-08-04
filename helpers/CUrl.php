@@ -27,10 +27,16 @@ class CUrl
 			if(!self::$_baseHttpsUrl){
 				self::$_baseHttpsUrl = str_replace('http','https',self::getHomeUrl());
 			}
+			if(\Yii::$app->urlManager->enablePrettyUrl && (!\Yii::$app->urlManager->showScriptName)){
+				return self::$_baseHttpsUrl.'/index.php';
+			}
 			return self::$_baseHttpsUrl;
 		}else{
 			if(!self::$_baseHttpUrl){
 				self::$_baseHttpUrl = str_replace('https','http',self::getHomeUrl());
+			}
+			if(\Yii::$app->urlManager->enablePrettyUrl && (!\Yii::$app->urlManager->showScriptName)){
+				return self::$_baseHttpUrl.'/index.php';
 			}
 			return self::$_baseHttpUrl;
 		}
@@ -47,32 +53,21 @@ class CUrl
 		}
 	}
 	
-	# 4.通过模板name，得到对应文件路径。
-	# 默认是 domain.com/skin/theme/下面的绝对URL
-	public static function getSkinUrl($dir = '',$relative_path=false){
-		$currentTheme = CConfig::getCurrentTheme();
-		$url = '';
-		if(!$relative_path){
-			$url = self::getHomeUrl(). DIRECTORY_SEPARATOR;
-		}
-		return  $url.'skin'.DIRECTORY_SEPARATOR
-				.$currentTheme.DIRECTORY_SEPARATOR
-				.$dir;
-	}
+	
 	
 	#5. 通过url path 和参数  得到当前网站下的完整url路径。
 	public static function getUrl($url_path,$params=array(),$isHttps=false){
 		$url_path = trim($url_path,DIRECTORY_SEPARATOR);
 		$url =  self::getBaseUrl($isHttps). DIRECTORY_SEPARATOR .$url_path;
-		$str = "";
+		
 		if(!empty($params) && is_array($params)){
-			$str .= "?";
+			$arr = [];
 			foreach($params as $k=>$v){
-				$str .= $k."=".$v."&";
+				$arr[] = $k."=".$v;
 			}
-			$str = substr($str,0,strlen($str)-1);
+			return $url.'?'.implode('&',$arr);
 		}
-		return $url.$str;
+		return $url;
 	} 
 	
 	# 6.得到当前的完整url
