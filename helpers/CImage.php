@@ -66,7 +66,7 @@ class CImage
 	/**
 	 * @property $imgPath|String 原来图片的绝对路径
 	 * @property $newPath|String 压缩尺寸，并加入水印后的图片保存路径。
-	 * @property $resize|Array or String 图片压缩后的宽度，['width'=111,'height'=222];
+	 * @property $resize|Array or String 图片压缩后的宽度，[111,222];
 	 * @property $waterMark|String 水印图片的绝对路径
 	 * 生成新的带有水印的缩略图，水印图片默认放到中间位置。
 	 * newPath 要保证改路径存在并可写。如果水印图片比resize的尺寸大，则水印图片将不会被添加到生成的图片上面
@@ -81,12 +81,10 @@ class CImage
 		$imgWidth 	= $sourceBox->getWidth();
 		$imgHeight 	= $sourceBox->getHeight();
 		if(is_array($resize)){
-			$resizeWidth= $resize[0];
-			$resizeHeight= $resize[1];
+			list($resizeWidth,$resizeHeight) = $resize;
 		}else{
 			$resizeWidth = $resizeHeight = $resize;
 		}
-		
 		if(!$resizeWidth && !$resizeHeight){
 			return false;
 		}
@@ -110,7 +108,6 @@ class CImage
 		$gr_image = $imagine->create($size);
 		//$gr_image->save($newPath);
 		
-		
 		$image->resize(new Box($resizeImgWidth, $resizeImgHeight ));
 		// 和空白图片合并
 		$startX = ($resizeWidth - $resizeImgWidth)/2 ;
@@ -120,7 +117,6 @@ class CImage
 		$start = [$startX,$startY];
 		$gr_image->paste($image, new Point($start[0], $start[1]));
 		
-		
 		if($waterMark){
 			$waterImage = static::getImagine()->open($waterMark);
 			$waterSourceBox 		= $waterImage->getSize();
@@ -129,7 +125,6 @@ class CImage
 			if(($resizeWidth >= $watermarkWidth)
 			&& ($resizeHeight >= $watermarkHeight)
 			){
-				
 				$startX = ($resizeWidth - $watermarkWidth)/2 ;
 				$startY = ($resizeHeight - $watermarkHeight)/2 ;
 				$startX = ($startX > 0) ? $startX : 0;
@@ -139,7 +134,6 @@ class CImage
 			}
 		}
 		$gr_image->save($newPath);
-		
 	}
 	
 	
@@ -157,8 +151,10 @@ class CImage
 		CImage::saveThumbnail($oldImgFile,$newImgFile ,$width, $height);
 		文件将被保存到新文件路径，如果文件存在，则 被覆盖
 	*/
-	public static function saveThumbnail($oldImgFile,$newImgFile ,$width, $height, $mode = ManipulatorInterface::THUMBNAIL_INSET)
+	public static function saveThumbnail($oldImgFile,$newImgFile ,$resize, $mode = ManipulatorInterface::THUMBNAIL_INSET)
     {
+		$width 	= $resize['width'];
+		$height = $resize['height'];
 		$imageModle = self::thumbnail($oldImgFile, $width, $height,$mode);
 		$newImgFile = Yii::getAlias($newImgFile);
 		$imageModle->save($newImgFile);
