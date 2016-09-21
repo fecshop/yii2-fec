@@ -75,7 +75,7 @@ class CImage
 	 */
 	
 	public static function saveResizeMiddleWaterImg($imgPath,$newPath,$resize,$waterMark=''){
-		
+		//exit;
 		$image = static::getImagine()->open($imgPath);
 		$sourceBox 	= $image->getSize();
 		$imgWidth 	= $sourceBox->getWidth();
@@ -83,8 +83,12 @@ class CImage
 		if(is_array($resize)){
 			list($resizeWidth,$resizeHeight) = $resize;
 		}else{
-			$resizeWidth = $resizeHeight = $resize;
+			$resizeWidth = $resize;
+			$resizeHeight = $resizeWidth * $imgHeight / $imgWidth;
 		}
+		//echo 22;
+		//echo $resizeWidth.' && '.$resizeHeight;
+		//exit;
 		if(!$resizeWidth && !$resizeHeight){
 			return false;
 		}

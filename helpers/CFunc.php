@@ -62,13 +62,17 @@ class CFunc
 	# $array为要排序的数组
 	# $keys为要用来排序的键名,二维数组的key
 	# $type默认为升序排序 
-	public static function array_sort($array,$keys,$type='asc'){  
+	public static function array_sort($array,$keys,$dir='asc',$isFloat=true){  
 		 
 		$keysvalue = $new_array = array();  
 		foreach ($array as $k=>$v){  
-			$keysvalue[$k] = $v[$keys];  
+			if($isFloat){
+				$keysvalue[$k] = (float)$v[$keys];
+			}else{
+				$keysvalue[$k] = $v[$keys];
+			}  
 		}  
-		if($type == 'asc'){  
+		if($dir == 'asc'){  
 			asort($keysvalue);  
 		}else{  
 			arsort($keysvalue);  
