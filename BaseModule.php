@@ -28,14 +28,14 @@ class BaseModule extends \yii\base\Module
         parent::init();
 		
 		$theme		= CConfig::getCurrentTheme();
-		# ¶¨ÒåviewsÎÄ¼þËùÔÚÂ·¾¶
+		# å®šä¹‰viewsæ–‡ä»¶æ‰€åœ¨è·¯å¾„
 		$dir = \basename($this->_currentDir);
 		basename(dirname($_SERVER['PHP_SELF']));
 		$viewPath = __DIR__ . "/Theme/".$theme."/".strtolower($dir);
 		$this->setViewPath($viewPath); 
-		# ¶¨ÒåÄ£¿é×¨ÊôµÄlayout ÎÄ¼þ  appadmin/code/Blog/Theme/default/article/layouts/main.php
+		# å®šä¹‰æ¨¡å—ä¸“å±žçš„layout æ–‡ä»¶  appadmin/code/Blog/Theme/default/article/layouts/main.php
 		//$this->layout = "main.php";
-		# ¼ÓÔØÅäÖÃÎÄ¼þ
+		# åŠ è½½é…ç½®æ–‡ä»¶
 		$config_file_dir = $this->_currentDir . '/etc/config.php';
 		if(file_exists($config_file_dir)){
 			if(($params_data = (require($config_file_dir))) && !empty($params_data)){

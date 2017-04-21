@@ -24,19 +24,19 @@ class AdminModule extends \yii\base\Module
     {
 		parent::init();  
 		$this->configModuleParams();
-		# Ä¬ÈÏlayoutÎÄ¼þ
+		# é»˜è®¤layoutæ–‡ä»¶
 		$this->layout = $this->layout ? $this->layout : "main.php";
 		
     }
 	
 	public function configModuleParams(){
-		# ÅäÖÃconfigÎÄ¼þ
+		# é…ç½®configæ–‡ä»¶
 		$config_file_dir = $this->_currentDir . '/etc/config.php';
 		if(file_exists($config_file_dir)){
 			$params_data = (require($config_file_dir));
 			
 		}
-		# ÉèÖÃ²ÎÊý
+		# è®¾ç½®å‚æ•°
 		$params_data['_currentDir'] 		= $this->_currentDir;
 		$params_data['_currentNameSpace'] 	= $this->_currentNameSpace;
 		$params = $this->params;
@@ -53,14 +53,14 @@ class AdminModule extends \yii\base\Module
         parent::init();
 		
 		$theme		= CConfig::getCurrentTheme();
-		# ¶¨ÒåviewsÎÄ¼þËùÔÚÂ·¾¶
+		# å®šä¹‰viewsæ–‡ä»¶æ‰€åœ¨è·¯å¾„
 		$dir = \basename($this->_currentDir);
 		basename(dirname($_SERVER['PHP_SELF']));
 		$viewPath = __DIR__ . "/Theme/".$theme."/".strtolower($dir);
 		$this->setViewPath($viewPath); 
-		# ¶¨ÒåÄ£¿é×¨ÊôµÄlayout ÎÄ¼þ  appadmin/code/Blog/Theme/default/article/layouts/main.php
+		# å®šä¹‰æ¨¡å—ä¸“å±žçš„layout æ–‡ä»¶  appadmin/code/Blog/Theme/default/article/layouts/main.php
 		//$this->layout = "main.php";
-		# ¼ÓÔØÅäÖÃÎÄ¼þ
+		# åŠ è½½é…ç½®æ–‡ä»¶
 		$config_file_dir = $this->_currentDir . '/etc/config.php';
 		if(file_exists($config_file_dir)){
 			if(($params_data = (require($config_file_dir))) && !empty($params_data)){

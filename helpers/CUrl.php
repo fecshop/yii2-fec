@@ -22,24 +22,15 @@ class CUrl
 		//return Yii::$app->getBaseUrl(true);
 	}
 	# 2. 获取首页地址。同上
-	public static function getBaseUrl($isHttps=false){
-		if($isHttps){
-			if(!self::$_baseHttpsUrl){
-				self::$_baseHttpsUrl = str_replace('http','https',self::getHomeUrl());
-			}
+	public static function getBaseUrl(){
+		if(!self::$_baseHttpsUrl){
 			if(\Yii::$app->urlManager->enablePrettyUrl && (!\Yii::$app->urlManager->showScriptName)){
-				return self::$_baseHttpsUrl.'/index.php';
+				self::$_baseHttpsUrl = self::getHomeUrl().'/index.php';
 			}
-			return self::$_baseHttpsUrl;
-		}else{
-			if(!self::$_baseHttpUrl){
-				self::$_baseHttpUrl = str_replace('https','http',self::getHomeUrl());
-			}
-			if(\Yii::$app->urlManager->enablePrettyUrl && (!\Yii::$app->urlManager->showScriptName)){
-				return self::$_baseHttpUrl.'/index.php';
-			}
-			return self::$_baseHttpUrl;
+			self::$_baseHttpsUrl = self::getHomeUrl();
 		}
+		return self::$_baseHttpsUrl;
+		
 	}
 	
 	# 3.立即跳转  和 yii2的跳转还是不同
@@ -58,8 +49,7 @@ class CUrl
 	#5. 通过url path 和参数  得到当前网站下的完整url路径。
 	public static function getUrl($url_path,$params=array(),$isHttps=false){
 		$url_path = trim($url_path,DIRECTORY_SEPARATOR);
-		$url =  self::getBaseUrl($isHttps). DIRECTORY_SEPARATOR .$url_path;
-		
+		$url =  self::getBaseUrl(). DIRECTORY_SEPARATOR .$url_path;
 		if(!empty($params) && is_array($params)){
 			$arr = [];
 			foreach($params as $k=>$v){
