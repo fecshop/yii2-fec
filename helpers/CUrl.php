@@ -48,8 +48,8 @@ class CUrl
 	
 	#5. 通过url path 和参数  得到当前网站下的完整url路径。
 	public static function getUrl($url_path,$params=array(),$isHttps=false){
-		$url_path = trim($url_path,DIRECTORY_SEPARATOR);
-		$url =  self::getBaseUrl(). DIRECTORY_SEPARATOR .$url_path;
+		$url_path = trim($url_path,'/');
+		$url =  self::getBaseUrl(). '/' .$url_path;
 		if(!empty($params) && is_array($params)){
 			$arr = [];
 			foreach($params as $k=>$v){
