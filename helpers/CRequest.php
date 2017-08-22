@@ -69,7 +69,7 @@ class CRequest
 	}
 	# 7.得到csrf的input 的 html
 	public static function getCsrfInputHtml(){
-		echo '<input class="thiscsrf" type="hidden" value="'.self::getCsrfValue().'" name="'.self::getCsrfName().'" />';
+		return '<input class="thiscsrf" type="hidden" value="'.self::getCsrfValue().'" name="'.self::getCsrfName().'" />';
 	}
     
 	# 8.得到csrf对应的字符串
