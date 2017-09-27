@@ -47,7 +47,7 @@ class CDir
 		foreach($dir_arr as $folder){
 			$dir = $dir.'/'.$folder;
 			if(!is_dir($dir)){
-				mkdir($dir,0777);
+				@mkdir($dir,0777);
 			}
 		}
         if(is_dir($dir)){
