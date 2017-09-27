@@ -50,7 +50,12 @@ class CDir
 				mkdir($dir,0777);
 			}
 		}
-		return $dir;
+        if(is_dir($dir)){
+            return $dir;
+        }else{
+            return false;
+        }
+		
 	}
 	
 	
