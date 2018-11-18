@@ -74,7 +74,7 @@ class CImage
 	 * @return  
 	 */
 	
-	public static function saveResizeMiddleWaterImg($imgPath,$newPath,$resize,$waterMark=''){
+	public static function saveResizeMiddleWaterImg($imgPath, $newPath, $resize, $waterMark='', $options = []){
 		//exit;
 		$image = static::getImagine()->open($imgPath);
 		$sourceBox 	= $image->getSize();
@@ -137,7 +137,8 @@ class CImage
 				$gr_image->paste($waterImage, new Point($start[0], $start[1]));
 			}
 		}
-		$gr_image->save($newPath);
+        ;
+		$gr_image->save($newPath, $options);
 	}
 	
 	
