@@ -18,7 +18,7 @@ class CExcel
 	public static function prepare(){
 		require_once(__DIR__."/../lib/PHPExcel/PHPExcel.php");
 		require_once(__DIR__."/../lib/PHPExcel/PHPExcel/IOFactory.php");
-		require_once(__DIR__."/../lib/PHPExcel/PHPExcel/Reader/Excel5.php");
+		require_once(__DIR__."/../lib/PHPExcel/PHPExcel/Reader/Excel2007.php");
 		
 	}
 	
@@ -68,7 +68,7 @@ class CExcel
 		header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 		header ('Pragma: public'); // HTTP/1.0
 
-		$objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+		$objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 		$objWriter->save('php://output');
 		exit;
 		
