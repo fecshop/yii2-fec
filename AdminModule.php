@@ -32,10 +32,11 @@ class AdminModule extends \yii\base\Module
 	public function configModuleParams(){
 		# 配置config文件
 		$config_file_dir = $this->_currentDir . '/etc/config.php';
-		if(file_exists($config_file_dir)){
+		
+		if(isset($this->_currentDir) && file_exists($config_file_dir)){
 			$params_data = (require($config_file_dir));
-			
 		}
+		
 		# 设置参数
 		$params_data['_currentDir'] 		= $this->_currentDir;
 		$params_data['_currentNameSpace'] 	= $this->_currentNameSpace;
