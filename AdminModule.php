@@ -23,7 +23,7 @@ class AdminModule extends \yii\base\Module
 	public function init()
     {
 		parent::init();  
-		$this->configModuleParams();
+		isset($this->_currentDir) && $this->configModuleParams();
 		# 默认layout文件
 		$this->layout = $this->layout ? $this->layout : "main.php";
 		
@@ -33,7 +33,7 @@ class AdminModule extends \yii\base\Module
 		# 配置config文件
 		$config_file_dir = $this->_currentDir . '/etc/config.php';
 		
-		if(isset($this->_currentDir) && file_exists($config_file_dir)){
+		if(file_exists($config_file_dir)){
 			$params_data = (require($config_file_dir));
 		}
 		
